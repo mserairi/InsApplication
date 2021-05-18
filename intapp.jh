@@ -1,0 +1,13 @@
+
+entity Enfant {
+	nom String required
+    prenom String required
+    age Integer
+    
+}
+
+
+relationship OneToMany {
+	User{user} to Enfant{enfant}
+}
+
