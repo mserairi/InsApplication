@@ -5,9 +5,3 @@ entity Enfant {
     age Integer
     
 }
-
-
-relationship OneToMany {
-	User{user} to Enfant{enfant}
-}
-
