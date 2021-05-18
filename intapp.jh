@@ -5,3 +5,8 @@ entity Enfant {
     age Integer
     
 }
+relationship ManyToOne
+{
+Enfant{user(login)} to User
+
+}
