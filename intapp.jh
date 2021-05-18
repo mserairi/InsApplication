@@ -7,7 +7,7 @@ entity Enfant {
 }
 
 
-relationship OneToMany {
+relationship ManyToMany {
 	User{user} to Enfant{enfant}
 }
 
