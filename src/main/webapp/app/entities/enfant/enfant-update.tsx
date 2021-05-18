@@ -46,7 +46,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
       const entity = {
         ...enfantEntity,
         ...values,
-        user: users.find(it => it.id.toString() === values.userId.toString()),
+        parent: users.find(it => it.id.toString() === values.parentId.toString()),
       };
 
       if (isNew) {
@@ -115,10 +115,10 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                 <AvField id="enfant-age" data-cy="age" type="string" className="form-control" name="age" />
               </AvGroup>
               <AvGroup>
-                <Label for="enfant-user">
-                  <Translate contentKey="insApplicationApp.enfant.user">User</Translate>
+                <Label for="enfant-parent">
+                  <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
                 </Label>
-                <AvInput id="enfant-user" data-cy="user" type="select" className="form-control" name="userId">
+                <AvInput id="enfant-parent" data-cy="parent" type="select" className="form-control" name="parentId">
                   <option value="" key="0" />
                   {users
                     ? users.map(otherEntity => (

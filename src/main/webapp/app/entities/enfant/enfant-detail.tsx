@@ -49,9 +49,9 @@ export const EnfantDetail = (props: IEnfantDetailProps) => {
           </dt>
           <dd>{enfantEntity.age}</dd>
           <dt>
-            <Translate contentKey="insApplicationApp.enfant.user">User</Translate>
+            <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
           </dt>
-          <dd>{enfantEntity.user ? enfantEntity.user.id : ''}</dd>
+          <dd>{enfantEntity.parent ? enfantEntity.parent.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/enfant" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

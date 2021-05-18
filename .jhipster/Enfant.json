@@ -21,7 +21,7 @@
       "relationshipType": "many-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "enfant",
-      "relationshipName": "user"
+      "relationshipName": "parent"
     }
   ],
   "entityTableName": "enfant",

@@ -7,6 +7,6 @@ entity Enfant {
 }
 relationship ManyToOne
 {
-Enfant{user} to User
+Enfant{Parent} to User
 
 }
