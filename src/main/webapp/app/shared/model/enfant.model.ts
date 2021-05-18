@@ -5,7 +5,7 @@ export interface IEnfant {
   nom?: string;
   prenom?: string;
   age?: number | null;
-  user?: IUser | null;
+  parent?: IUser | null;
 }
 
 export const defaultValue: Readonly<IEnfant> = {};
