@@ -42,7 +42,9 @@
     "jwtSecretKey": "MjA1NDczZmZlMWQ2YjAzZGU0NmYxMzU0NWZlMWI4M2FhZGNiNTY5NDFiOTJiMDFkODdhODU2OWM5NjhjNjZmYTI0MGM0NDExMjllZWQ1ZGI2MGEwODI0MWExYThlNWM3NzNiYTkyZTFhZTMxODdjZjZhYzUxYjgwMzQyNjZlNGM=",
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "reactive": false
+    "reactive": false,
+    "entities": ["Enfant"],
+    "lastLiquibaseTimestamp": 1621352836000
   },
   "git-provider": "GitHub",
   "git-company": "mserairi",
