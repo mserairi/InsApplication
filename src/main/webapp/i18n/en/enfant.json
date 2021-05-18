@@ -20,7 +20,8 @@
       "id": "ID",
       "nom": "Nom",
       "prenom": "Prenom",
-      "age": "Age"
+      "age": "Age",
+      "user": "User"
     }
   }
 }

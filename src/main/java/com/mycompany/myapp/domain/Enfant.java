@@ -32,6 +32,9 @@ public class Enfant implements Serializable {
     @Column(name = "age")
     private Integer age;
 
+    @ManyToOne
+    private User user;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -83,6 +86,19 @@ public class Enfant implements Serializable {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public Enfant user(User user) {
+        this.setUser(user);
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

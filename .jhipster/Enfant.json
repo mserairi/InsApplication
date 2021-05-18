@@ -16,7 +16,15 @@
       "fieldType": "Integer"
     }
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "enfant",
+      "relationshipName": "user",
+      "otherEntityField": "login"
+    }
+  ],
   "entityTableName": "enfant",
   "dto": "no",
   "pagination": "no",
