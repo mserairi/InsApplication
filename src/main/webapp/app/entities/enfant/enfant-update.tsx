@@ -123,7 +123,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                   {users
                     ? users.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.login}
+                          {otherEntity.id}
                         </option>
                       ))
                     : null}
