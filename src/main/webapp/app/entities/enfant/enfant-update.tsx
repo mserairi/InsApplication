@@ -7,6 +7,8 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './enfant.reducer';
 import { IEnfant } from 'app/shared/model/enfant.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -17,7 +19,7 @@ export interface IEnfantUpdateProps extends StateProps, DispatchProps, RouteComp
 export const EnfantUpdate = (props: IEnfantUpdateProps) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { enfantEntity, loading, updating } = props;
+  const { enfantEntity, users, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/enfant');
@@ -29,6 +31,8 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
+
+    props.getUsers();
   }, []);
 
   useEffect(() => {
@@ -42,6 +46,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
       const entity = {
         ...enfantEntity,
         ...values,
+        user: users.find(it => it.id.toString() === values.userId.toString()),
       };
 
       if (isNew) {
@@ -109,6 +114,21 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                 </Label>
                 <AvField id="enfant-age" data-cy="age" type="string" className="form-control" name="age" />
               </AvGroup>
+              <AvGroup>
+                <Label for="enfant-user">
+                  <Translate contentKey="insApplicationApp.enfant.user">User</Translate>
+                </Label>
+                <AvInput id="enfant-user" data-cy="user" type="select" className="form-control" name="userId">
+                  <option value="" key="0" />
+                  {users
+                    ? users.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.login}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/enfant" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -131,6 +151,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  users: storeState.userManagement.users,
   enfantEntity: storeState.enfant.entity,
   loading: storeState.enfant.loading,
   updating: storeState.enfant.updating,
@@ -138,6 +159,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getUsers,
   getEntity,
   updateEntity,
   createEntity,

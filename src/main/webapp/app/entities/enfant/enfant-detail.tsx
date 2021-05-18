@@ -48,6 +48,10 @@ export const EnfantDetail = (props: IEnfantDetailProps) => {
             </span>
           </dt>
           <dd>{enfantEntity.age}</dd>
+          <dt>
+            <Translate contentKey="insApplicationApp.enfant.user">User</Translate>
+          </dt>
+          <dd>{enfantEntity.user ? enfantEntity.user.login : ''}</dd>
         </dl>
         <Button tag={Link} to="/enfant" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

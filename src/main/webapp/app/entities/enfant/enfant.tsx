@@ -55,6 +55,9 @@ export const Enfant = (props: IEnfantProps) => {
                 <th>
                   <Translate contentKey="insApplicationApp.enfant.age">Age</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.user">User</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -69,6 +72,7 @@ export const Enfant = (props: IEnfantProps) => {
                   <td>{enfant.nom}</td>
                   <td>{enfant.prenom}</td>
                   <td>{enfant.age}</td>
+                  <td>{enfant.user ? enfant.user.login : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${enfant.id}`} color="info" size="sm" data-cy="entityDetailsButton">
