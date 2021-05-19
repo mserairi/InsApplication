@@ -5,8 +5,25 @@ entity Enfant {
     age Integer
     
 }
+entity Category {
+   libile String required
+   description String required
+   tarif Float
+}
+
 relationship ManyToOne
 {
-Enfant{Parent} to User
+Category{sousCat(libile)} to Category
+
+}
+
+relationship ManyToMany
+{
+Enfant{Suivre(libile)} to Category{Inscrits}
+
+}
+relationship ManyToMany
+{
+Enfant{Parent(login)} to User
 
 }
