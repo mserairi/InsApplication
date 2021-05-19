@@ -24,6 +24,14 @@ import category, {
 import inscription, {
   InscriptionState
 } from 'app/entities/inscription/inscription.reducer';
+// prettier-ignore
+import sousCategory, {
+  SousCategoryState
+} from 'app/entities/sous-category/sous-category.reducer';
+// prettier-ignore
+import lasession, {
+  LasessionState
+} from 'app/entities/lasession/lasession.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -40,6 +48,8 @@ export interface IRootState {
   readonly enfant: EnfantState;
   readonly category: CategoryState;
   readonly inscription: InscriptionState;
+  readonly sousCategory: SousCategoryState;
+  readonly lasession: LasessionState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -58,6 +68,8 @@ const rootReducer = combineReducers<IRootState>({
   enfant,
   category,
   inscription,
+  sousCategory,
+  lasession,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

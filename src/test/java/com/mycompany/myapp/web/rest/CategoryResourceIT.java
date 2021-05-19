@@ -35,9 +35,6 @@ class CategoryResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final Float DEFAULT_TARIF = 1F;
-    private static final Float UPDATED_TARIF = 2F;
-
     private static final String ENTITY_API_URL = "/api/categories";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -62,7 +59,7 @@ class CategoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Category createEntity(EntityManager em) {
-        Category category = new Category().libile(DEFAULT_LIBILE).description(DEFAULT_DESCRIPTION).tarif(DEFAULT_TARIF);
+        Category category = new Category().libile(DEFAULT_LIBILE).description(DEFAULT_DESCRIPTION);
         return category;
     }
 
@@ -73,7 +70,7 @@ class CategoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Category createUpdatedEntity(EntityManager em) {
-        Category category = new Category().libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION).tarif(UPDATED_TARIF);
+        Category category = new Category().libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
         return category;
     }
 
@@ -97,7 +94,6 @@ class CategoryResourceIT {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getLibile()).isEqualTo(DEFAULT_LIBILE);
         assertThat(testCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testCategory.getTarif()).isEqualTo(DEFAULT_TARIF);
     }
 
     @Test
@@ -165,8 +161,7 @@ class CategoryResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(category.getId().intValue())))
             .andExpect(jsonPath("$.[*].libile").value(hasItem(DEFAULT_LIBILE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].tarif").value(hasItem(DEFAULT_TARIF.doubleValue())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
     @Test
@@ -182,8 +177,7 @@ class CategoryResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(category.getId().intValue()))
             .andExpect(jsonPath("$.libile").value(DEFAULT_LIBILE))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
-            .andExpect(jsonPath("$.tarif").value(DEFAULT_TARIF.doubleValue()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
     @Test
@@ -205,7 +199,7 @@ class CategoryResourceIT {
         Category updatedCategory = categoryRepository.findById(category.getId()).get();
         // Disconnect from session so that the updates on updatedCategory are not directly saved in db
         em.detach(updatedCategory);
-        updatedCategory.libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION).tarif(UPDATED_TARIF);
+        updatedCategory.libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
 
         restCategoryMockMvc
             .perform(
@@ -221,7 +215,6 @@ class CategoryResourceIT {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getLibile()).isEqualTo(UPDATED_LIBILE);
         assertThat(testCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testCategory.getTarif()).isEqualTo(UPDATED_TARIF);
     }
 
     @Test
@@ -306,7 +299,6 @@ class CategoryResourceIT {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getLibile()).isEqualTo(DEFAULT_LIBILE);
         assertThat(testCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testCategory.getTarif()).isEqualTo(DEFAULT_TARIF);
     }
 
     @Test
@@ -321,7 +313,7 @@ class CategoryResourceIT {
         Category partialUpdatedCategory = new Category();
         partialUpdatedCategory.setId(category.getId());
 
-        partialUpdatedCategory.libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION).tarif(UPDATED_TARIF);
+        partialUpdatedCategory.libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
 
         restCategoryMockMvc
             .perform(
@@ -337,7 +329,6 @@ class CategoryResourceIT {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getLibile()).isEqualTo(UPDATED_LIBILE);
         assertThat(testCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testCategory.getTarif()).isEqualTo(UPDATED_TARIF);
     }
 
     @Test

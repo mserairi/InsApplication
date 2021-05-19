@@ -19,9 +19,7 @@
       },
       "id": "ID",
       "libile": "Libile",
-      "description": "Description",
-      "tarif": "Tarif",
-      "sousCat": "Sous Cat"
+      "description": "Description"
     }
   }
 }

@@ -1,6 +1,5 @@
 package com.mycompany.myapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -29,13 +28,6 @@ public class Category implements Serializable {
     @NotNull
     @Column(name = "description", nullable = false)
     private String description;
-
-    @Column(name = "tarif")
-    private Float tarif;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "sousCat" }, allowSetters = true)
-    private Category sousCat;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -77,32 +69,6 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public Float getTarif() {
-        return this.tarif;
-    }
-
-    public Category tarif(Float tarif) {
-        this.tarif = tarif;
-        return this;
-    }
-
-    public void setTarif(Float tarif) {
-        this.tarif = tarif;
-    }
-
-    public Category getSousCat() {
-        return this.sousCat;
-    }
-
-    public Category sousCat(Category category) {
-        this.setSousCat(category);
-        return this;
-    }
-
-    public void setSousCat(Category category) {
-        this.sousCat = category;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -129,7 +95,6 @@ public class Category implements Serializable {
             "id=" + getId() +
             ", libile='" + getLibile() + "'" +
             ", description='" + getDescription() + "'" +
-            ", tarif=" + getTarif() +
             "}";
     }
 }

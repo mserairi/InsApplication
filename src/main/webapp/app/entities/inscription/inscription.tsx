@@ -50,7 +50,7 @@ export const Inscription = (props: IInscriptionProps) => {
                   <Translate contentKey="insApplicationApp.inscription.dateinscription">Dateinscription</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="insApplicationApp.inscription.lasession">Lasession</Translate>
+                  <Translate contentKey="insApplicationApp.inscription.status">Status</Translate>
                 </th>
                 <th>
                   <Translate contentKey="insApplicationApp.inscription.concerne">Concerne</Translate>
@@ -74,9 +74,9 @@ export const Inscription = (props: IInscriptionProps) => {
                       <TextFormat type="date" value={inscription.dateinscription} format={APP_DATE_FORMAT} />
                     ) : null}
                   </td>
-                  <td>{inscription.lasession}</td>
+                  <td>{inscription.status ? 'true' : 'false'}</td>
                   <td>
-                    {inscription.concerne ? <Link to={`category/${inscription.concerne.id}`}>{inscription.concerne.libile}</Link> : ''}
+                    {inscription.concerne ? <Link to={`lasession/${inscription.concerne.id}`}>{inscription.concerne.code}</Link> : ''}
                   </td>
                   <td>
                     {inscription.inscrits

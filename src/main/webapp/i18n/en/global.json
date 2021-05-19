@@ -10,6 +10,8 @@
         "enfant": "Enfant",
         "category": "Category",
         "inscription": "Inscription",
+        "sousCategory": "Sous Category",
+        "lasession": "Lasession",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

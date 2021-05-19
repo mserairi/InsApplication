@@ -7,8 +7,8 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { ICategory } from 'app/shared/model/category.model';
-import { getEntities as getCategories } from 'app/entities/category/category.reducer';
+import { ILasession } from 'app/shared/model/lasession.model';
+import { getEntities as getLasessions } from 'app/entities/lasession/lasession.reducer';
 import { IEnfant } from 'app/shared/model/enfant.model';
 import { getEntities as getEnfants } from 'app/entities/enfant/enfant.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './inscription.reducer';
@@ -22,7 +22,7 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
   const [idsinscrits, setIdsinscrits] = useState([]);
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { inscriptionEntity, categories, enfants, loading, updating } = props;
+  const { inscriptionEntity, lasessions, enfants, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/inscription');
@@ -35,7 +35,7 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
 
-    props.getCategories();
+    props.getLasessions();
     props.getEnfants();
   }, []);
 
@@ -53,7 +53,7 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
         ...inscriptionEntity,
         ...values,
         inscrits: mapIdList(values.inscrits),
-        concerne: categories.find(it => it.id.toString() === values.concerneId.toString()),
+        concerne: lasessions.find(it => it.id.toString() === values.concerneId.toString()),
       };
 
       if (isNew) {
@@ -101,19 +101,11 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.inscriptionEntity.dateinscription)}
                 />
               </AvGroup>
-              <AvGroup>
-                <Label id="lasessionLabel" for="inscription-lasession">
-                  <Translate contentKey="insApplicationApp.inscription.lasession">Lasession</Translate>
+              <AvGroup check>
+                <Label id="statusLabel">
+                  <AvInput id="inscription-status" data-cy="status" type="checkbox" className="form-check-input" name="status" />
+                  <Translate contentKey="insApplicationApp.inscription.status">Status</Translate>
                 </Label>
-                <AvField
-                  id="inscription-lasession"
-                  data-cy="lasession"
-                  type="text"
-                  name="lasession"
-                  validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                  }}
-                />
               </AvGroup>
               <AvGroup>
                 <Label for="inscription-concerne">
@@ -121,10 +113,10 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
                 </Label>
                 <AvInput id="inscription-concerne" data-cy="concerne" type="select" className="form-control" name="concerneId">
                   <option value="" key="0" />
-                  {categories
-                    ? categories.map(otherEntity => (
+                  {lasessions
+                    ? lasessions.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.libile}
+                          {otherEntity.code}
                         </option>
                       ))
                     : null}
@@ -175,7 +167,7 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  categories: storeState.category.entities,
+  lasessions: storeState.lasession.entities,
   enfants: storeState.enfant.entities,
   inscriptionEntity: storeState.inscription.entity,
   loading: storeState.inscription.loading,
@@ -184,7 +176,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getCategories,
+  getLasessions,
   getEnfants,
   getEntity,
   updateEntity,

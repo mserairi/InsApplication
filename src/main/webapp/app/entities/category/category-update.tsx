@@ -7,7 +7,6 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getEntities as getCategories } from 'app/entities/category/category.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './category.reducer';
 import { ICategory } from 'app/shared/model/category.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -18,7 +17,7 @@ export interface ICategoryUpdateProps extends StateProps, DispatchProps, RouteCo
 export const CategoryUpdate = (props: ICategoryUpdateProps) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { categoryEntity, categories, loading, updating } = props;
+  const { categoryEntity, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/category');
@@ -30,8 +29,6 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
-
-    props.getCategories();
   }, []);
 
   useEffect(() => {
@@ -45,7 +42,6 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
       const entity = {
         ...categoryEntity,
         ...values,
-        sousCat: categories.find(it => it.id.toString() === values.sousCatId.toString()),
       };
 
       if (isNew) {
@@ -107,27 +103,6 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
                   }}
                 />
               </AvGroup>
-              <AvGroup>
-                <Label id="tarifLabel" for="category-tarif">
-                  <Translate contentKey="insApplicationApp.category.tarif">Tarif</Translate>
-                </Label>
-                <AvField id="category-tarif" data-cy="tarif" type="string" className="form-control" name="tarif" />
-              </AvGroup>
-              <AvGroup>
-                <Label for="category-sousCat">
-                  <Translate contentKey="insApplicationApp.category.sousCat">Sous Cat</Translate>
-                </Label>
-                <AvInput id="category-sousCat" data-cy="sousCat" type="select" className="form-control" name="sousCatId">
-                  <option value="" key="0" />
-                  {categories
-                    ? categories.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.libile}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
-              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/category" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -150,7 +125,6 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  categories: storeState.category.entities,
   categoryEntity: storeState.category.entity,
   loading: storeState.category.loading,
   updating: storeState.category.updating,
@@ -158,7 +132,6 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getCategories,
   getEntity,
   updateEntity,
   createEntity,

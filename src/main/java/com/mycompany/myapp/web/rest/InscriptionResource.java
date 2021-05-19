@@ -8,8 +8,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,7 +46,7 @@ public class InscriptionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/inscriptions")
-    public ResponseEntity<Inscription> createInscription(@Valid @RequestBody Inscription inscription) throws URISyntaxException {
+    public ResponseEntity<Inscription> createInscription(@RequestBody Inscription inscription) throws URISyntaxException {
         log.debug("REST request to save Inscription : {}", inscription);
         if (inscription.getId() != null) {
             throw new BadRequestAlertException("A new inscription cannot already have an ID", ENTITY_NAME, "idexists");
@@ -73,7 +71,7 @@ public class InscriptionResource {
     @PutMapping("/inscriptions/{id}")
     public ResponseEntity<Inscription> updateInscription(
         @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody Inscription inscription
+        @RequestBody Inscription inscription
     ) throws URISyntaxException {
         log.debug("REST request to update Inscription : {}, {}", id, inscription);
         if (inscription.getId() == null) {
@@ -108,7 +106,7 @@ public class InscriptionResource {
     @PatchMapping(value = "/inscriptions/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<Inscription> partialUpdateInscription(
         @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody Inscription inscription
+        @RequestBody Inscription inscription
     ) throws URISyntaxException {
         log.debug("REST request to partial update Inscription partially : {}, {}", id, inscription);
         if (inscription.getId() == null) {
@@ -129,8 +127,8 @@ public class InscriptionResource {
                     if (inscription.getDateinscription() != null) {
                         existingInscription.setDateinscription(inscription.getDateinscription());
                     }
-                    if (inscription.getLasession() != null) {
-                        existingInscription.setLasession(inscription.getLasession());
+                    if (inscription.getStatus() != null) {
+                        existingInscription.setStatus(inscription.getStatus());
                     }
 
                     return existingInscription;

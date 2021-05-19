@@ -52,12 +52,6 @@ export const Category = (props: ICategoryProps) => {
                 <th>
                   <Translate contentKey="insApplicationApp.category.description">Description</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="insApplicationApp.category.tarif">Tarif</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="insApplicationApp.category.sousCat">Sous Cat</Translate>
-                </th>
                 <th />
               </tr>
             </thead>
@@ -71,8 +65,6 @@ export const Category = (props: ICategoryProps) => {
                   </td>
                   <td>{category.libile}</td>
                   <td>{category.description}</td>
-                  <td>{category.tarif}</td>
-                  <td>{category.sousCat ? <Link to={`category/${category.sousCat.id}`}>{category.sousCat.libile}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${category.id}`} color="info" size="sm" data-cy="entityDetailsButton">

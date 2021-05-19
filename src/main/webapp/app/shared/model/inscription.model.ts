@@ -1,13 +1,15 @@
 import dayjs from 'dayjs';
-import { ICategory } from 'app/shared/model/category.model';
+import { ILasession } from 'app/shared/model/lasession.model';
 import { IEnfant } from 'app/shared/model/enfant.model';
 
 export interface IInscription {
   id?: number;
   dateinscription?: string | null;
-  lasession?: string;
-  concerne?: ICategory | null;
+  status?: boolean | null;
+  concerne?: ILasession | null;
   inscrits?: IEnfant[] | null;
 }
 
-export const defaultValue: Readonly<IInscription> = {};
+export const defaultValue: Readonly<IInscription> = {
+  status: false,
+};

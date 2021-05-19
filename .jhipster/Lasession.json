@@ -1,0 +1,46 @@
+{
+  "name": "Lasession",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tarif",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "debut",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "fin",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "category",
+      "otherEntityRelationshipName": "lasession",
+      "relationshipName": "category",
+      "otherEntityField": "libile"
+    }
+  ],
+  "entityTableName": "lasession",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210519140544"
+}

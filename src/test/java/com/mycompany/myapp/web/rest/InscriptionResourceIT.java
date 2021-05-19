@@ -42,8 +42,8 @@ class InscriptionResourceIT {
     private static final Instant DEFAULT_DATEINSCRIPTION = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_DATEINSCRIPTION = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final String DEFAULT_LASESSION = "AAAAAAAAAA";
-    private static final String UPDATED_LASESSION = "BBBBBBBBBB";
+    private static final Boolean DEFAULT_STATUS = false;
+    private static final Boolean UPDATED_STATUS = true;
 
     private static final String ENTITY_API_URL = "/api/inscriptions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -72,7 +72,7 @@ class InscriptionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Inscription createEntity(EntityManager em) {
-        Inscription inscription = new Inscription().dateinscription(DEFAULT_DATEINSCRIPTION).lasession(DEFAULT_LASESSION);
+        Inscription inscription = new Inscription().dateinscription(DEFAULT_DATEINSCRIPTION).status(DEFAULT_STATUS);
         return inscription;
     }
 
@@ -83,7 +83,7 @@ class InscriptionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Inscription createUpdatedEntity(EntityManager em) {
-        Inscription inscription = new Inscription().dateinscription(UPDATED_DATEINSCRIPTION).lasession(UPDATED_LASESSION);
+        Inscription inscription = new Inscription().dateinscription(UPDATED_DATEINSCRIPTION).status(UPDATED_STATUS);
         return inscription;
     }
 
@@ -106,7 +106,7 @@ class InscriptionResourceIT {
         assertThat(inscriptionList).hasSize(databaseSizeBeforeCreate + 1);
         Inscription testInscription = inscriptionList.get(inscriptionList.size() - 1);
         assertThat(testInscription.getDateinscription()).isEqualTo(DEFAULT_DATEINSCRIPTION);
-        assertThat(testInscription.getLasession()).isEqualTo(DEFAULT_LASESSION);
+        assertThat(testInscription.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -129,23 +129,6 @@ class InscriptionResourceIT {
 
     @Test
     @Transactional
-    void checkLasessionIsRequired() throws Exception {
-        int databaseSizeBeforeTest = inscriptionRepository.findAll().size();
-        // set the field null
-        inscription.setLasession(null);
-
-        // Create the Inscription, which fails.
-
-        restInscriptionMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(inscription)))
-            .andExpect(status().isBadRequest());
-
-        List<Inscription> inscriptionList = inscriptionRepository.findAll();
-        assertThat(inscriptionList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllInscriptions() throws Exception {
         // Initialize the database
         inscriptionRepository.saveAndFlush(inscription);
@@ -157,7 +140,7 @@ class InscriptionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(inscription.getId().intValue())))
             .andExpect(jsonPath("$.[*].dateinscription").value(hasItem(DEFAULT_DATEINSCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].lasession").value(hasItem(DEFAULT_LASESSION)));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.booleanValue())));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -191,7 +174,7 @@ class InscriptionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(inscription.getId().intValue()))
             .andExpect(jsonPath("$.dateinscription").value(DEFAULT_DATEINSCRIPTION.toString()))
-            .andExpect(jsonPath("$.lasession").value(DEFAULT_LASESSION));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.booleanValue()));
     }
 
     @Test
@@ -213,7 +196,7 @@ class InscriptionResourceIT {
         Inscription updatedInscription = inscriptionRepository.findById(inscription.getId()).get();
         // Disconnect from session so that the updates on updatedInscription are not directly saved in db
         em.detach(updatedInscription);
-        updatedInscription.dateinscription(UPDATED_DATEINSCRIPTION).lasession(UPDATED_LASESSION);
+        updatedInscription.dateinscription(UPDATED_DATEINSCRIPTION).status(UPDATED_STATUS);
 
         restInscriptionMockMvc
             .perform(
@@ -228,7 +211,7 @@ class InscriptionResourceIT {
         assertThat(inscriptionList).hasSize(databaseSizeBeforeUpdate);
         Inscription testInscription = inscriptionList.get(inscriptionList.size() - 1);
         assertThat(testInscription.getDateinscription()).isEqualTo(UPDATED_DATEINSCRIPTION);
-        assertThat(testInscription.getLasession()).isEqualTo(UPDATED_LASESSION);
+        assertThat(testInscription.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
@@ -314,7 +297,7 @@ class InscriptionResourceIT {
         assertThat(inscriptionList).hasSize(databaseSizeBeforeUpdate);
         Inscription testInscription = inscriptionList.get(inscriptionList.size() - 1);
         assertThat(testInscription.getDateinscription()).isEqualTo(UPDATED_DATEINSCRIPTION);
-        assertThat(testInscription.getLasession()).isEqualTo(DEFAULT_LASESSION);
+        assertThat(testInscription.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -329,7 +312,7 @@ class InscriptionResourceIT {
         Inscription partialUpdatedInscription = new Inscription();
         partialUpdatedInscription.setId(inscription.getId());
 
-        partialUpdatedInscription.dateinscription(UPDATED_DATEINSCRIPTION).lasession(UPDATED_LASESSION);
+        partialUpdatedInscription.dateinscription(UPDATED_DATEINSCRIPTION).status(UPDATED_STATUS);
 
         restInscriptionMockMvc
             .perform(
@@ -344,7 +327,7 @@ class InscriptionResourceIT {
         assertThat(inscriptionList).hasSize(databaseSizeBeforeUpdate);
         Inscription testInscription = inscriptionList.get(inscriptionList.size() - 1);
         assertThat(testInscription.getDateinscription()).isEqualTo(UPDATED_DATEINSCRIPTION);
-        assertThat(testInscription.getLasession()).isEqualTo(UPDATED_LASESSION);
+        assertThat(testInscription.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

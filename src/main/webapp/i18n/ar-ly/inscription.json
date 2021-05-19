@@ -19,7 +19,7 @@
       },
       "id": "ID",
       "dateinscription": "Dateinscription",
-      "lasession": "Lasession",
+      "status": "Status",
       "concerne": "Concerne",
       "inscrits": "Inscrits"
     }

@@ -17,8 +17,8 @@
             <column name="dateinscription" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="lasession" type="varchar(255)">
-                <constraints nullable="false" />
+            <column name="status" type="boolean">
+                <constraints nullable="true" />
             </column>
             <column name="concerne_id" type="bigint">
                 <constraints nullable="true" />
@@ -59,7 +59,7 @@
                   tableName="inscription">
             <column name="id" type="numeric"/>
             <column name="dateinscription" type="${datetimeType}"/>
-            <column name="lasession" type="string"/>
+            <column name="status" type="boolean"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
