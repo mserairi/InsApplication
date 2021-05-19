@@ -8,8 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { getEntities as getCategories } from 'app/entities/category/category.reducer';
-import { IEnfant } from 'app/shared/model/enfant.model';
-import { getEntities as getEnfants } from 'app/entities/enfant/enfant.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './category.reducer';
 import { ICategory } from 'app/shared/model/category.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -20,7 +18,7 @@ export interface ICategoryUpdateProps extends StateProps, DispatchProps, RouteCo
 export const CategoryUpdate = (props: ICategoryUpdateProps) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { categoryEntity, categories, enfants, loading, updating } = props;
+  const { categoryEntity, categories, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/category');
@@ -34,7 +32,6 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
     }
 
     props.getCategories();
-    props.getEnfants();
   }, []);
 
   useEffect(() => {
@@ -154,7 +151,6 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   categories: storeState.category.entities,
-  enfants: storeState.enfant.entities,
   categoryEntity: storeState.category.entity,
   loading: storeState.category.loading,
   updating: storeState.category.updating,
@@ -163,7 +159,6 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getCategories,
-  getEnfants,
   getEntity,
   updateEntity,
   createEntity,

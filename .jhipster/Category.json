@@ -23,13 +23,6 @@
       "otherEntityRelationshipName": "category",
       "relationshipName": "sousCat",
       "otherEntityField": "libile"
-    },
-    {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "enfant",
-      "otherEntityRelationshipName": "suivre",
-      "relationshipName": "inscrits",
-      "ownerSide": false
     }
   ],
   "entityTableName": "category",

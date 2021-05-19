@@ -38,21 +38,16 @@ public class Enfant implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
-        name = "rel_enfant__suivre",
-        joinColumns = @JoinColumn(name = "enfant_id"),
-        inverseJoinColumns = @JoinColumn(name = "suivre_id")
-    )
-    @JsonIgnoreProperties(value = { "sousCat", "inscrits" }, allowSetters = true)
-    private Set<Category> suivres = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(
         name = "rel_enfant__parent",
         joinColumns = @JoinColumn(name = "enfant_id"),
         inverseJoinColumns = @JoinColumn(name = "parent_id")
     )
     private Set<User> parents = new HashSet<>();
+
+    @ManyToMany(mappedBy = "inscrits")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "concerne", "inscrits" }, allowSetters = true)
+    private Set<Inscription> suivres = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -107,31 +102,6 @@ public class Enfant implements Serializable {
         this.age = age;
     }
 
-    public Set<Category> getSuivres() {
-        return this.suivres;
-    }
-
-    public Enfant suivres(Set<Category> categories) {
-        this.setSuivres(categories);
-        return this;
-    }
-
-    public Enfant addSuivre(Category category) {
-        this.suivres.add(category);
-        category.getInscrits().add(this);
-        return this;
-    }
-
-    public Enfant removeSuivre(Category category) {
-        this.suivres.remove(category);
-        category.getInscrits().remove(this);
-        return this;
-    }
-
-    public void setSuivres(Set<Category> categories) {
-        this.suivres = categories;
-    }
-
     public Set<User> getParents() {
         return this.parents;
     }
@@ -153,6 +123,37 @@ public class Enfant implements Serializable {
 
     public void setParents(Set<User> users) {
         this.parents = users;
+    }
+
+    public Set<Inscription> getSuivres() {
+        return this.suivres;
+    }
+
+    public Enfant suivres(Set<Inscription> inscriptions) {
+        this.setSuivres(inscriptions);
+        return this;
+    }
+
+    public Enfant addSuivre(Inscription inscription) {
+        this.suivres.add(inscription);
+        inscription.getInscrits().add(this);
+        return this;
+    }
+
+    public Enfant removeSuivre(Inscription inscription) {
+        this.suivres.remove(inscription);
+        inscription.getInscrits().remove(this);
+        return this;
+    }
+
+    public void setSuivres(Set<Inscription> inscriptions) {
+        if (this.suivres != null) {
+            this.suivres.forEach(i -> i.removeInscrits(this));
+        }
+        if (inscriptions != null) {
+            inscriptions.forEach(i -> i.addInscrits(this));
+        }
+        this.suivres = inscriptions;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

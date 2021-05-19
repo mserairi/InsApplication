@@ -2,8 +2,6 @@ package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -36,13 +34,8 @@ public class Category implements Serializable {
     private Float tarif;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "sousCat", "inscrits" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "sousCat" }, allowSetters = true)
     private Category sousCat;
-
-    @ManyToMany(mappedBy = "suivres")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "suivres", "parents" }, allowSetters = true)
-    private Set<Enfant> inscrits = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -108,37 +101,6 @@ public class Category implements Serializable {
 
     public void setSousCat(Category category) {
         this.sousCat = category;
-    }
-
-    public Set<Enfant> getInscrits() {
-        return this.inscrits;
-    }
-
-    public Category inscrits(Set<Enfant> enfants) {
-        this.setInscrits(enfants);
-        return this;
-    }
-
-    public Category addInscrits(Enfant enfant) {
-        this.inscrits.add(enfant);
-        enfant.getSuivres().add(this);
-        return this;
-    }
-
-    public Category removeInscrits(Enfant enfant) {
-        this.inscrits.remove(enfant);
-        enfant.getSuivres().remove(this);
-        return this;
-    }
-
-    public void setInscrits(Set<Enfant> enfants) {
-        if (this.inscrits != null) {
-            this.inscrits.forEach(i -> i.removeSuivre(this));
-        }
-        if (enfants != null) {
-            enfants.forEach(i -> i.addSuivre(this));
-        }
-        this.inscrits = enfants;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
