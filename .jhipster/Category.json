@@ -1,0 +1,45 @@
+{
+  "name": "Category",
+  "fields": [
+    {
+      "fieldName": "libile",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tarif",
+      "fieldType": "Float"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "category",
+      "otherEntityRelationshipName": "category",
+      "relationshipName": "sousCat",
+      "otherEntityField": "libile"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "enfant",
+      "otherEntityRelationshipName": "suivre",
+      "relationshipName": "inscrits",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "category",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210519131853"
+}

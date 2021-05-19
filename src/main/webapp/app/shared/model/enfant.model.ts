@@ -1,3 +1,4 @@
+import { ICategory } from 'app/shared/model/category.model';
 import { IUser } from 'app/shared/model/user.model';
 
 export interface IEnfant {
@@ -5,7 +6,8 @@ export interface IEnfant {
   nom?: string;
   prenom?: string;
   age?: number | null;
-  parent?: IUser | null;
+  suivres?: ICategory[] | null;
+  parents?: IUser[] | null;
 }
 
 export const defaultValue: Readonly<IEnfant> = {};

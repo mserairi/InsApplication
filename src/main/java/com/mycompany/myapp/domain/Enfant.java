@@ -1,6 +1,9 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -32,8 +35,24 @@ public class Enfant implements Serializable {
     @Column(name = "age")
     private Integer age;
 
-    @ManyToOne
-    private User parent;
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(
+        name = "rel_enfant__suivre",
+        joinColumns = @JoinColumn(name = "enfant_id"),
+        inverseJoinColumns = @JoinColumn(name = "suivre_id")
+    )
+    @JsonIgnoreProperties(value = { "sousCat", "inscrits" }, allowSetters = true)
+    private Set<Category> suivres = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(
+        name = "rel_enfant__parent",
+        joinColumns = @JoinColumn(name = "enfant_id"),
+        inverseJoinColumns = @JoinColumn(name = "parent_id")
+    )
+    private Set<User> parents = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -88,17 +107,52 @@ public class Enfant implements Serializable {
         this.age = age;
     }
 
-    public User getParent() {
-        return this.parent;
+    public Set<Category> getSuivres() {
+        return this.suivres;
     }
 
-    public Enfant parent(User user) {
-        this.setParent(user);
+    public Enfant suivres(Set<Category> categories) {
+        this.setSuivres(categories);
         return this;
     }
 
-    public void setParent(User user) {
-        this.parent = user;
+    public Enfant addSuivre(Category category) {
+        this.suivres.add(category);
+        category.getInscrits().add(this);
+        return this;
+    }
+
+    public Enfant removeSuivre(Category category) {
+        this.suivres.remove(category);
+        category.getInscrits().remove(this);
+        return this;
+    }
+
+    public void setSuivres(Set<Category> categories) {
+        this.suivres = categories;
+    }
+
+    public Set<User> getParents() {
+        return this.parents;
+    }
+
+    public Enfant parents(Set<User> users) {
+        this.setParents(users);
+        return this;
+    }
+
+    public Enfant addParent(User user) {
+        this.parents.add(user);
+        return this;
+    }
+
+    public Enfant removeParent(User user) {
+        this.parents.remove(user);
+        return this;
+    }
+
+    public void setParents(Set<User> users) {
+        this.parents = users;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

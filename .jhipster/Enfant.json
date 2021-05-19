@@ -18,10 +18,20 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "many-to-many",
+      "otherEntityName": "category",
+      "otherEntityRelationshipName": "inscrits",
+      "relationshipName": "suivre",
+      "otherEntityField": "libile",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "enfant",
-      "relationshipName": "parent"
+      "relationshipName": "parent",
+      "otherEntityField": "login",
+      "ownerSide": true
     }
   ],
   "entityTableName": "enfant",

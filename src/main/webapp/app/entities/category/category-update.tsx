@@ -7,26 +7,23 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { ICategory } from 'app/shared/model/category.model';
 import { getEntities as getCategories } from 'app/entities/category/category.reducer';
-import { IUser } from 'app/shared/model/user.model';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './enfant.reducer';
 import { IEnfant } from 'app/shared/model/enfant.model';
+import { getEntities as getEnfants } from 'app/entities/enfant/enfant.reducer';
+import { getEntity, updateEntity, createEntity, reset } from './category.reducer';
+import { ICategory } from 'app/shared/model/category.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IEnfantUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface ICategoryUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export const EnfantUpdate = (props: IEnfantUpdateProps) => {
-  const [idssuivre, setIdssuivre] = useState([]);
-  const [idsparent, setIdsparent] = useState([]);
+export const CategoryUpdate = (props: ICategoryUpdateProps) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { enfantEntity, categories, users, loading, updating } = props;
+  const { categoryEntity, categories, enfants, loading, updating } = props;
 
   const handleClose = () => {
-    props.history.push('/enfant');
+    props.history.push('/category');
   };
 
   useEffect(() => {
@@ -37,7 +34,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
     }
 
     props.getCategories();
-    props.getUsers();
+    props.getEnfants();
   }, []);
 
   useEffect(() => {
@@ -49,10 +46,9 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
   const saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const entity = {
-        ...enfantEntity,
+        ...categoryEntity,
         ...values,
-        suivres: mapIdList(values.suivres),
-        parents: mapIdList(values.parents),
+        sousCat: categories.find(it => it.id.toString() === values.sousCatId.toString()),
       };
 
       if (isNew) {
@@ -67,8 +63,8 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="insApplicationApp.enfant.home.createOrEditLabel" data-cy="EnfantCreateUpdateHeading">
-            <Translate contentKey="insApplicationApp.enfant.home.createOrEditLabel">Create or edit a Enfant</Translate>
+          <h2 id="insApplicationApp.category.home.createOrEditLabel" data-cy="CategoryCreateUpdateHeading">
+            <Translate contentKey="insApplicationApp.category.home.createOrEditLabel">Create or edit a Category</Translate>
           </h2>
         </Col>
       </Row>
@@ -77,62 +73,54 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <AvForm model={isNew ? {} : enfantEntity} onSubmit={saveEntity}>
+            <AvForm model={isNew ? {} : categoryEntity} onSubmit={saveEntity}>
               {!isNew ? (
                 <AvGroup>
-                  <Label for="enfant-id">
+                  <Label for="category-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="enfant-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="category-id" type="text" className="form-control" name="id" required readOnly />
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="nomLabel" for="enfant-nom">
-                  <Translate contentKey="insApplicationApp.enfant.nom">Nom</Translate>
+                <Label id="libileLabel" for="category-libile">
+                  <Translate contentKey="insApplicationApp.category.libile">Libile</Translate>
                 </Label>
                 <AvField
-                  id="enfant-nom"
-                  data-cy="nom"
+                  id="category-libile"
+                  data-cy="libile"
                   type="text"
-                  name="nom"
+                  name="libile"
                   validate={{
                     required: { value: true, errorMessage: translate('entity.validation.required') },
                   }}
                 />
               </AvGroup>
               <AvGroup>
-                <Label id="prenomLabel" for="enfant-prenom">
-                  <Translate contentKey="insApplicationApp.enfant.prenom">Prenom</Translate>
+                <Label id="descriptionLabel" for="category-description">
+                  <Translate contentKey="insApplicationApp.category.description">Description</Translate>
                 </Label>
                 <AvField
-                  id="enfant-prenom"
-                  data-cy="prenom"
+                  id="category-description"
+                  data-cy="description"
                   type="text"
-                  name="prenom"
+                  name="description"
                   validate={{
                     required: { value: true, errorMessage: translate('entity.validation.required') },
                   }}
                 />
               </AvGroup>
               <AvGroup>
-                <Label id="ageLabel" for="enfant-age">
-                  <Translate contentKey="insApplicationApp.enfant.age">Age</Translate>
+                <Label id="tarifLabel" for="category-tarif">
+                  <Translate contentKey="insApplicationApp.category.tarif">Tarif</Translate>
                 </Label>
-                <AvField id="enfant-age" data-cy="age" type="string" className="form-control" name="age" />
+                <AvField id="category-tarif" data-cy="tarif" type="string" className="form-control" name="tarif" />
               </AvGroup>
               <AvGroup>
-                <Label for="enfant-suivre">
-                  <Translate contentKey="insApplicationApp.enfant.suivre">Suivre</Translate>
+                <Label for="category-sousCat">
+                  <Translate contentKey="insApplicationApp.category.sousCat">Sous Cat</Translate>
                 </Label>
-                <AvInput
-                  id="enfant-suivre"
-                  data-cy="suivre"
-                  type="select"
-                  multiple
-                  className="form-control"
-                  name="suivres"
-                  value={!isNew && enfantEntity.suivres && enfantEntity.suivres.map(e => e.id)}
-                >
+                <AvInput id="category-sousCat" data-cy="sousCat" type="select" className="form-control" name="sousCatId">
                   <option value="" key="0" />
                   {categories
                     ? categories.map(otherEntity => (
@@ -143,30 +131,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                     : null}
                 </AvInput>
               </AvGroup>
-              <AvGroup>
-                <Label for="enfant-parent">
-                  <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
-                </Label>
-                <AvInput
-                  id="enfant-parent"
-                  data-cy="parent"
-                  type="select"
-                  multiple
-                  className="form-control"
-                  name="parents"
-                  value={!isNew && enfantEntity.parents && enfantEntity.parents.map(e => e.id)}
-                >
-                  <option value="" key="0" />
-                  {users
-                    ? users.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.login}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
-              </AvGroup>
-              <Button tag={Link} id="cancel-save" to="/enfant" replace color="info">
+              <Button tag={Link} id="cancel-save" to="/category" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -189,16 +154,16 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   categories: storeState.category.entities,
-  users: storeState.userManagement.users,
-  enfantEntity: storeState.enfant.entity,
-  loading: storeState.enfant.loading,
-  updating: storeState.enfant.updating,
-  updateSuccess: storeState.enfant.updateSuccess,
+  enfants: storeState.enfant.entities,
+  categoryEntity: storeState.category.entity,
+  loading: storeState.category.loading,
+  updating: storeState.category.updating,
+  updateSuccess: storeState.category.updateSuccess,
 });
 
 const mapDispatchToProps = {
   getCategories,
-  getUsers,
+  getEnfants,
   getEntity,
   updateEntity,
   createEntity,
@@ -208,4 +173,4 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(EnfantUpdate);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryUpdate);

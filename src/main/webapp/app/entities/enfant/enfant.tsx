@@ -56,6 +56,9 @@ export const Enfant = (props: IEnfantProps) => {
                   <Translate contentKey="insApplicationApp.enfant.age">Age</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="insApplicationApp.enfant.suivre">Suivre</Translate>
+                </th>
+                <th>
                   <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
                 </th>
                 <th />
@@ -72,7 +75,26 @@ export const Enfant = (props: IEnfantProps) => {
                   <td>{enfant.nom}</td>
                   <td>{enfant.prenom}</td>
                   <td>{enfant.age}</td>
-                  <td>{enfant.parent ? enfant.parent.id : ''}</td>
+                  <td>
+                    {enfant.suivres
+                      ? enfant.suivres.map((val, j) => (
+                          <span key={j}>
+                            <Link to={`category/${val.id}`}>{val.libile}</Link>
+                            {j === enfant.suivres.length - 1 ? '' : ', '}
+                          </span>
+                        ))
+                      : null}
+                  </td>
+                  <td>
+                    {enfant.parents
+                      ? enfant.parents.map((val, j) => (
+                          <span key={j}>
+                            {val.login}
+                            {j === enfant.parents.length - 1 ? '' : ', '}
+                          </span>
+                        ))
+                      : null}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${enfant.id}`} color="info" size="sm" data-cy="entityDetailsButton">

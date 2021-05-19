@@ -49,9 +49,31 @@ export const EnfantDetail = (props: IEnfantDetailProps) => {
           </dt>
           <dd>{enfantEntity.age}</dd>
           <dt>
+            <Translate contentKey="insApplicationApp.enfant.suivre">Suivre</Translate>
+          </dt>
+          <dd>
+            {enfantEntity.suivres
+              ? enfantEntity.suivres.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.libile}</a>
+                    {enfantEntity.suivres && i === enfantEntity.suivres.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
+          <dt>
             <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
           </dt>
-          <dd>{enfantEntity.parent ? enfantEntity.parent.id : ''}</dd>
+          <dd>
+            {enfantEntity.parents
+              ? enfantEntity.parents.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.login}</a>
+                    {enfantEntity.parents && i === enfantEntity.parents.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}{' '}
+          </dd>
         </dl>
         <Button tag={Link} to="/enfant" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

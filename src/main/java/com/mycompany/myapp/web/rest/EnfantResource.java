@@ -150,12 +150,13 @@ public class EnfantResource {
     /**
      * {@code GET  /enfants} : get all the enfants.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of enfants in body.
      */
     @GetMapping("/enfants")
-    public List<Enfant> getAllEnfants() {
+    public List<Enfant> getAllEnfants(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Enfants");
-        return enfantRepository.findAll();
+        return enfantRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -167,7 +168,7 @@ public class EnfantResource {
     @GetMapping("/enfants/{id}")
     public ResponseEntity<Enfant> getEnfant(@PathVariable Long id) {
         log.debug("REST request to get Enfant : {}", id);
-        Optional<Enfant> enfant = enfantRepository.findById(id);
+        Optional<Enfant> enfant = enfantRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(enfant);
     }
 
