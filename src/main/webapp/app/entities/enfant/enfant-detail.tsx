@@ -49,19 +49,6 @@ export const EnfantDetail = (props: IEnfantDetailProps) => {
           </dt>
           <dd>{enfantEntity.age}</dd>
           <dt>
-            <Translate contentKey="insApplicationApp.enfant.suivre">Suivre</Translate>
-          </dt>
-          <dd>
-            {enfantEntity.suivres
-              ? enfantEntity.suivres.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.libile}</a>
-                    {enfantEntity.suivres && i === enfantEntity.suivres.length - 1 ? '' : ', '}
-                  </span>
-                ))
-              : null}
-          </dd>
-          <dt>
             <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
           </dt>
           <dd>

@@ -19,19 +19,19 @@
   "relationships": [
     {
       "relationshipType": "many-to-many",
-      "otherEntityName": "category",
-      "otherEntityRelationshipName": "inscrits",
-      "relationshipName": "suivre",
-      "otherEntityField": "libile",
-      "ownerSide": true
-    },
-    {
-      "relationshipType": "many-to-many",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "enfant",
       "relationshipName": "parent",
       "otherEntityField": "login",
       "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "inscription",
+      "otherEntityRelationshipName": "inscrits",
+      "relationshipName": "suivre",
+      "otherEntityField": "lasession",
+      "ownerSide": false
     }
   ],
   "entityTableName": "enfant",

@@ -15,14 +15,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EnfantRepository extends JpaRepository<Enfant, Long> {
     @Query(
-        value = "select distinct enfant from Enfant enfant left join fetch enfant.suivres left join fetch enfant.parents",
+        value = "select distinct enfant from Enfant enfant left join fetch enfant.parents",
         countQuery = "select count(distinct enfant) from Enfant enfant"
     )
     Page<Enfant> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct enfant from Enfant enfant left join fetch enfant.suivres left join fetch enfant.parents")
+    @Query("select distinct enfant from Enfant enfant left join fetch enfant.parents")
     List<Enfant> findAllWithEagerRelationships();
 
-    @Query("select enfant from Enfant enfant left join fetch enfant.suivres left join fetch enfant.parents where enfant.id =:id")
+    @Query("select enfant from Enfant enfant left join fetch enfant.parents where enfant.id =:id")
     Optional<Enfant> findOneWithEagerRelationships(@Param("id") Long id);
 }

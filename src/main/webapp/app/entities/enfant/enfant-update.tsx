@@ -7,10 +7,10 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { ICategory } from 'app/shared/model/category.model';
-import { getEntities as getCategories } from 'app/entities/category/category.reducer';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
+import { IInscription } from 'app/shared/model/inscription.model';
+import { getEntities as getInscriptions } from 'app/entities/inscription/inscription.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './enfant.reducer';
 import { IEnfant } from 'app/shared/model/enfant.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -19,11 +19,10 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IEnfantUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const EnfantUpdate = (props: IEnfantUpdateProps) => {
-  const [idssuivre, setIdssuivre] = useState([]);
   const [idsparent, setIdsparent] = useState([]);
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { enfantEntity, categories, users, loading, updating } = props;
+  const { enfantEntity, users, inscriptions, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/enfant');
@@ -36,8 +35,8 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
 
-    props.getCategories();
     props.getUsers();
+    props.getInscriptions();
   }, []);
 
   useEffect(() => {
@@ -51,7 +50,6 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
       const entity = {
         ...enfantEntity,
         ...values,
-        suivres: mapIdList(values.suivres),
         parents: mapIdList(values.parents),
       };
 
@@ -121,29 +119,6 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                 <AvField id="enfant-age" data-cy="age" type="string" className="form-control" name="age" />
               </AvGroup>
               <AvGroup>
-                <Label for="enfant-suivre">
-                  <Translate contentKey="insApplicationApp.enfant.suivre">Suivre</Translate>
-                </Label>
-                <AvInput
-                  id="enfant-suivre"
-                  data-cy="suivre"
-                  type="select"
-                  multiple
-                  className="form-control"
-                  name="suivres"
-                  value={!isNew && enfantEntity.suivres && enfantEntity.suivres.map(e => e.id)}
-                >
-                  <option value="" key="0" />
-                  {categories
-                    ? categories.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.libile}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
-              </AvGroup>
-              <AvGroup>
                 <Label for="enfant-parent">
                   <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
                 </Label>
@@ -188,8 +163,8 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  categories: storeState.category.entities,
   users: storeState.userManagement.users,
+  inscriptions: storeState.inscription.entities,
   enfantEntity: storeState.enfant.entity,
   loading: storeState.enfant.loading,
   updating: storeState.enfant.updating,
@@ -197,8 +172,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getCategories,
   getUsers,
+  getInscriptions,
   getEntity,
   updateEntity,
   createEntity,

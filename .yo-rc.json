@@ -43,8 +43,8 @@
     "clientTheme": "none",
     "clientThemeVariant": "",
     "reactive": false,
-    "entities": ["Enfant", "Category"],
-    "lastLiquibaseTimestamp": 1621430333000
+    "entities": ["Enfant", "Category", "Inscription"],
+    "lastLiquibaseTimestamp": 1621431707000
   },
   "git-provider": "GitHub",
   "git-company": "mserairi",

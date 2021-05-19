@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Inscription.
+    -->
+    <changeSet id="20210519134147-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="concerne_id"
+                                 baseTableName="inscription"
+                                 constraintName="fk_inscription__concerne_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"/>
+
+        <addForeignKeyConstraint baseColumnNames="inscription_id"
+                                 baseTableName="rel_inscription__inscrits"
+                                 constraintName="fk_rel_inscription__inscrits__inscription_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="inscription"/>
+
+        <addForeignKeyConstraint baseColumnNames="inscrits_id"
+                                 baseTableName="rel_inscription__inscrits"
+                                 constraintName="fk_rel_inscription__inscrits__inscrits_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="enfant"/>
+    </changeSet>
+</databaseChangeLog>

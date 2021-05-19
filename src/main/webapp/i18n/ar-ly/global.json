@@ -9,6 +9,7 @@
         "main": "الكيانات",
         "enfant": "Enfant",
         "category": "Category",
+        "inscription": "Inscription",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

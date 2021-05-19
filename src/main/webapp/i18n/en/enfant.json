@@ -21,8 +21,8 @@
       "nom": "Nom",
       "prenom": "Prenom",
       "age": "Age",
-      "suivre": "Suivre",
-      "parent": "Parent"
+      "parent": "Parent",
+      "suivre": "Suivre"
     }
   }
 }

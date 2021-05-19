@@ -20,6 +20,10 @@ import enfant, {
 import category, {
   CategoryState
 } from 'app/entities/category/category.reducer';
+// prettier-ignore
+import inscription, {
+  InscriptionState
+} from 'app/entities/inscription/inscription.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -35,6 +39,7 @@ export interface IRootState {
   readonly settings: SettingsState;
   readonly enfant: EnfantState;
   readonly category: CategoryState;
+  readonly inscription: InscriptionState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -52,6 +57,7 @@ const rootReducer = combineReducers<IRootState>({
   settings,
   enfant,
   category,
+  inscription,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

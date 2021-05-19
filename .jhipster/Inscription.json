@@ -1,0 +1,40 @@
+{
+  "name": "Inscription",
+  "fields": [
+    {
+      "fieldName": "dateinscription",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lasession",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "category",
+      "otherEntityRelationshipName": "inscription",
+      "relationshipName": "concerne",
+      "otherEntityField": "libile"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "enfant",
+      "otherEntityRelationshipName": "suivre",
+      "relationshipName": "inscrits",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "inscription",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210519134147"
+}
