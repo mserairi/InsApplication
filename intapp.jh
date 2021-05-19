@@ -8,17 +8,34 @@ entity Enfant {
 entity Category {
    libile String required
    description String required
-   tarif Float
 }
+entity SousCategory {
+   libile String required
+   description String required
+}
+
+entity Lasession {
+   Code String required
+   description String required
+   tarif Float
+   debut Instant
+   fin Instant
+}
+
 entity Inscription
 {  
 dateinscription Instant
-lasession String required 
+status Boolean 
 }
 
 relationship ManyToOne
 {
-Category{sousCat(libile)} to Category
+SousCategory{category(libile)} to Category
+
+}
+relationship ManyToOne
+{
+Lasession{category(libile)} to Category
 
 }
 
@@ -29,7 +46,7 @@ Inscription{Inscrits} to Enfant{Suivre(lasession)}
 
 relationship ManyToOne
 {
-Inscription{Concerne(libile)} to Category
+Inscription{Concerne(Code)} to Lasession
 }
 
 relationship ManyToMany
