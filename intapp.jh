@@ -10,6 +10,11 @@ entity Category {
    description String required
    tarif Float
 }
+entity Inscription
+{  
+dateinscription Instant
+lasession String required 
+}
 
 relationship ManyToOne
 {
@@ -19,9 +24,14 @@ Category{sousCat(libile)} to Category
 
 relationship ManyToMany
 {
-Enfant{Suivre(libile)} to Category{Inscrits}
-
+Inscription{Inscrits} to Enfant{Suivre(lasession)}
 }
+
+relationship ManyToOne
+{
+Inscription{Concerne(libile)} to Category
+}
+
 relationship ManyToMany
 {
 Enfant{Parent(login)} to User
