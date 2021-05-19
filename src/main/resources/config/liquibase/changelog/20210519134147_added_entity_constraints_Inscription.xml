@@ -12,7 +12,7 @@
                                  baseTableName="inscription"
                                  constraintName="fk_inscription__concerne_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="category"/>
+                                 referencedTableName="lasession"/>
 
         <addForeignKeyConstraint baseColumnNames="inscription_id"
                                  baseTableName="rel_inscription__inscrits"

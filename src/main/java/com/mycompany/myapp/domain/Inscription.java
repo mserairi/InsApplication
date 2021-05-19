@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -28,13 +27,12 @@ public class Inscription implements Serializable {
     @Column(name = "dateinscription")
     private Instant dateinscription;
 
-    @NotNull
-    @Column(name = "lasession", nullable = false)
-    private String lasession;
+    @Column(name = "status")
+    private Boolean status;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "sousCat" }, allowSetters = true)
-    private Category concerne;
+    @JsonIgnoreProperties(value = { "category" }, allowSetters = true)
+    private Lasession concerne;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -73,30 +71,30 @@ public class Inscription implements Serializable {
         this.dateinscription = dateinscription;
     }
 
-    public String getLasession() {
-        return this.lasession;
+    public Boolean getStatus() {
+        return this.status;
     }
 
-    public Inscription lasession(String lasession) {
-        this.lasession = lasession;
+    public Inscription status(Boolean status) {
+        this.status = status;
         return this;
     }
 
-    public void setLasession(String lasession) {
-        this.lasession = lasession;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
-    public Category getConcerne() {
+    public Lasession getConcerne() {
         return this.concerne;
     }
 
-    public Inscription concerne(Category category) {
-        this.setConcerne(category);
+    public Inscription concerne(Lasession lasession) {
+        this.setConcerne(lasession);
         return this;
     }
 
-    public void setConcerne(Category category) {
-        this.concerne = category;
+    public void setConcerne(Lasession lasession) {
+        this.concerne = lasession;
     }
 
     public Set<Enfant> getInscrits() {
@@ -149,7 +147,7 @@ public class Inscription implements Serializable {
         return "Inscription{" +
             "id=" + getId() +
             ", dateinscription='" + getDateinscription() + "'" +
-            ", lasession='" + getLasession() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

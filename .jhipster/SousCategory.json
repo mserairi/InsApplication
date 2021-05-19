@@ -1,0 +1,34 @@
+{
+  "name": "SousCategory",
+  "fields": [
+    {
+      "fieldName": "libile",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "category",
+      "otherEntityRelationshipName": "sousCategory",
+      "relationshipName": "category",
+      "otherEntityField": "libile"
+    }
+  ],
+  "entityTableName": "sous_category",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210519140543"
+}

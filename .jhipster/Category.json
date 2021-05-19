@@ -10,21 +10,9 @@
       "fieldName": "description",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "tarif",
-      "fieldType": "Float"
     }
   ],
-  "relationships": [
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "category",
-      "otherEntityRelationshipName": "category",
-      "relationshipName": "sousCat",
-      "otherEntityField": "libile"
-    }
-  ],
+  "relationships": [],
   "entityTableName": "category",
   "dto": "no",
   "pagination": "no",

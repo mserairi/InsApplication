@@ -1,11 +1,11 @@
-id;dateinscription;lasession
-1;2021-05-19T00:44:41;Bedfordshire
-2;2021-05-19T03:54:56;Salad Administrator parallelism
-3;2021-05-19T06:27:31;program sticky ADP
-4;2021-05-18T21:22:51;emulation PCI Mouse
-5;2021-05-19T07:55:08;Cheese Cameroon Chair
-6;2021-05-19T06:17:14;withdrawal Alabama
-7;2021-05-18T23:21:38;Peru EXE
-8;2021-05-18T15:30:39;USB
-9;2021-05-19T06:56:13;Cambridgeshire
-10;2021-05-19T07:00:05;Account
+id;dateinscription;status
+1;2021-05-19T00:44:41;false
+2;2021-05-19T01:15:38;false
+3;2021-05-18T17:01:47;false
+4;2021-05-18T19:12:42;false
+5;2021-05-18T16:28:35;false
+6;2021-05-18T13:58:05;false
+7;2021-05-19T01:11:58;false
+8;2021-05-18T20:18:45;true
+9;2021-05-19T06:27:31;true
+10;2021-05-18T19:45:21;true

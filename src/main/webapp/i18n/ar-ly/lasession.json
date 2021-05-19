@@ -1,0 +1,29 @@
+{
+  "insApplicationApp": {
+    "lasession": {
+      "home": {
+        "title": "Lasessions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Lasession",
+        "createOrEditLabel": "Create or edit a Lasession",
+        "notFound": "No Lasessions found"
+      },
+      "created": "A new Lasession is created with identifier {{ param }}",
+      "updated": "A Lasession is updated with identifier {{ param }}",
+      "deleted": "A Lasession is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Lasession {{ id }}?"
+      },
+      "detail": {
+        "title": "Lasession"
+      },
+      "id": "ID",
+      "code": "Code",
+      "description": "Description",
+      "tarif": "Tarif",
+      "debut": "Debut",
+      "fin": "Fin",
+      "category": "Category"
+    }
+  }
+}

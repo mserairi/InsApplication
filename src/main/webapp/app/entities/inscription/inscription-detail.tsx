@@ -41,15 +41,15 @@ export const InscriptionDetail = (props: IInscriptionDetailProps) => {
             ) : null}
           </dd>
           <dt>
-            <span id="lasession">
-              <Translate contentKey="insApplicationApp.inscription.lasession">Lasession</Translate>
+            <span id="status">
+              <Translate contentKey="insApplicationApp.inscription.status">Status</Translate>
             </span>
           </dt>
-          <dd>{inscriptionEntity.lasession}</dd>
+          <dd>{inscriptionEntity.status ? 'true' : 'false'}</dd>
           <dt>
             <Translate contentKey="insApplicationApp.inscription.concerne">Concerne</Translate>
           </dt>
-          <dd>{inscriptionEntity.concerne ? inscriptionEntity.concerne.libile : ''}</dd>
+          <dd>{inscriptionEntity.concerne ? inscriptionEntity.concerne.code : ''}</dd>
           <dt>
             <Translate contentKey="insApplicationApp.inscription.inscrits">Inscrits</Translate>
           </dt>

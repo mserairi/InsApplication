@@ -132,9 +132,6 @@ public class CategoryResource {
                     if (category.getDescription() != null) {
                         existingCategory.setDescription(category.getDescription());
                     }
-                    if (category.getTarif() != null) {
-                        existingCategory.setTarif(category.getTarif());
-                    }
 
                     return existingCategory;
                 }

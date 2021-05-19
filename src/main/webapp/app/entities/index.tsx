@@ -7,6 +7,8 @@ import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import Enfant from './enfant';
 import Category from './category';
 import Inscription from './inscription';
+import SousCategory from './sous-category';
+import Lasession from './lasession';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -16,6 +18,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}enfant`} component={Enfant} />
       <ErrorBoundaryRoute path={`${match.url}category`} component={Category} />
       <ErrorBoundaryRoute path={`${match.url}inscription`} component={Inscription} />
+      <ErrorBoundaryRoute path={`${match.url}sous-category`} component={SousCategory} />
+      <ErrorBoundaryRoute path={`${match.url}lasession`} component={Lasession} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

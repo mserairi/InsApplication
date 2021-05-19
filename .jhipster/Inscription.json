@@ -6,18 +6,17 @@
       "fieldType": "Instant"
     },
     {
-      "fieldName": "lasession",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldName": "status",
+      "fieldType": "Boolean"
     }
   ],
   "relationships": [
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "category",
+      "otherEntityName": "lasession",
       "otherEntityRelationshipName": "inscription",
       "relationshipName": "concerne",
-      "otherEntityField": "libile"
+      "otherEntityField": "code"
     },
     {
       "relationshipType": "many-to-many",

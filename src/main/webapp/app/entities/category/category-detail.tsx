@@ -42,16 +42,6 @@ export const CategoryDetail = (props: ICategoryDetailProps) => {
             </span>
           </dt>
           <dd>{categoryEntity.description}</dd>
-          <dt>
-            <span id="tarif">
-              <Translate contentKey="insApplicationApp.category.tarif">Tarif</Translate>
-            </span>
-          </dt>
-          <dd>{categoryEntity.tarif}</dd>
-          <dt>
-            <Translate contentKey="insApplicationApp.category.sousCat">Sous Cat</Translate>
-          </dt>
-          <dd>{categoryEntity.sousCat ? categoryEntity.sousCat.libile : ''}</dd>
         </dl>
         <Button tag={Link} to="/category" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

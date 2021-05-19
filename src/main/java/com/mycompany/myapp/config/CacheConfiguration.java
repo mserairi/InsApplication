@@ -55,6 +55,8 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.Category.class.getName() + ".inscrits");
             createCache(cm, com.mycompany.myapp.domain.Inscription.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Inscription.class.getName() + ".inscrits");
+            createCache(cm, com.mycompany.myapp.domain.SousCategory.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Lasession.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
