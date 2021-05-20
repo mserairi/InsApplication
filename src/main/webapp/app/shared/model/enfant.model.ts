@@ -10,7 +10,7 @@ export interface IEnfant {
   dateNaissance?: string | null;
   autorisationImage?: boolean | null;
   infoSante?: string | null;
-  parents?: IUser[];
+  parent?: IUser;
   suivres?: IInscription[] | null;
   groupes?: IGroupe[] | null;
 }

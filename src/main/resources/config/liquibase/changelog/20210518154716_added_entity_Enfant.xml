@@ -29,23 +29,12 @@
             <column name="info_sante" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="parent_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="enfant" columnName="date_naissance" columnDataType="${datetimeType}"/>
-    </changeSet>
-
-    <changeSet id="20210518154716-1-relations" author="jhipster">
-
-        <createTable tableName="rel_enfant__parent">
-            <column name="parent_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="enfant_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="enfant_id, parent_id" tableName="rel_enfant__parent"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -69,6 +58,7 @@
             <column name="date_naissance" type="${datetimeType}"/>
             <column name="autorisation_image" type="boolean"/>
             <column name="info_sante" type="string"/>
+            <column name="parent_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

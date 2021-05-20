@@ -80,16 +80,7 @@ export const Enfant = (props: IEnfantProps) => {
                   <td>{enfant.dateNaissance ? <TextFormat type="date" value={enfant.dateNaissance} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{enfant.autorisationImage ? 'true' : 'false'}</td>
                   <td>{enfant.infoSante}</td>
-                  <td>
-                    {enfant.parents
-                      ? enfant.parents.map((val, j) => (
-                          <span key={j}>
-                            {val.login}
-                            {j === enfant.parents.length - 1 ? '' : ', '}
-                          </span>
-                        ))
-                      : null}
-                  </td>
+                  <td>{enfant.parent ? enfant.parent.login : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${enfant.id}`} color="info" size="sm" data-cy="entityDetailsButton">
