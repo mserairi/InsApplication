@@ -117,7 +117,7 @@ export const SousCategoryUpdate = (props: ISousCategoryUpdateProps) => {
                   {categories
                     ? categories.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.libile}
+                          {otherEntity.libille}
                         </option>
                       ))
                     : null}

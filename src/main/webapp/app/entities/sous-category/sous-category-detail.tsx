@@ -45,7 +45,7 @@ export const SousCategoryDetail = (props: ISousCategoryDetailProps) => {
           <dt>
             <Translate contentKey="insApplicationApp.sousCategory.category">Category</Translate>
           </dt>
-          <dd>{sousCategoryEntity.category ? sousCategoryEntity.category.libile : ''}</dd>
+          <dd>{sousCategoryEntity.category ? sousCategoryEntity.category.libille : ''}</dd>
         </dl>
         <Button tag={Link} to="/sous-category" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
