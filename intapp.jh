@@ -1,9 +1,12 @@
 
+
 entity Enfant {
-	nom String required
-    prenom String required
-    age Integer
-    
+	nom String required,
+    prenom String required,
+    dateNaissance Instant,
+    autorisationImage Boolean,
+    infoSante String,
+  
 }
 entity Category {
    libile String required
@@ -15,18 +18,103 @@ entity SousCategory {
 }
 
 entity Lasession {
-   Code String required
+   code String required
    description String required
    tarif Float
    debut Instant
    fin Instant
 }
+enum Etatcommande {
+    ENCOURS, TRAITEE, VALIDATIONPARTIELLE
+}
+entity CommandeInscriptions {
+  numero Integer
+  totalAvantRemise Float 
+  totalRemise Float
+  status Etatcommande
+}  
 
 entity Inscription
 {  
 dateinscription Instant
 status Boolean 
 }
+entity TypeRemise {
+  numero Integer
+  libille String
+  condition String
+  mantantLibre Boolean
+  montantUnitaire Float
+}
+
+entity Remise {
+	numero Integer
+  montant Integer
+  descreption String 
+}
+
+entity Facture
+{
+  numero Integer
+  date Instant
+  status EtatFacture
+}
+enum EtatFacture {
+    NONACQUITEE, ACQUITEE, PARTIELLE
+}
+
+entity Paiement {
+  numero Integer
+  date Instant
+  montant Float
+  type TypePaiement
+}
+enum TypePaiement {
+    ENLIGNE, SPCARTE, SPLIQUIDE, SPESPECE
+}
+
+entity Cours
+{
+  numero String
+  libille String
+  description String
+  seuil Integer
+  duree Integer 
+  periode PERIODICITE
+  frequence Integer
+  agiminrec Integer
+  agemaxrec Integer
+}
+enum PERIODICITE
+{
+HEBDOMADAIRE, MENSUEL, TRIMESTRIEL, PONCTUEL
+}
+
+entity Groupe
+{
+  numero String
+  libille String
+  lasession String 
+  nbrApprenant Integer
+}
+entity Creneau {
+  typeCreneau TYPECRENEAU required
+  jour JourSemaine
+  deb Instant
+  fin Instant
+}
+enum TYPECRENEAU{
+PONCTUEL, REPETETIF
+}
+enum JourSemaine{
+LUNDI, MARDI, MERCREDI, JEUDI, VENDREDI, SAMEDI, DIMANCHE
+}
+entity Salle {
+  code String required
+  batiment String required
+  etage Integer required
+}
+
 
 relationship ManyToOne
 {
@@ -36,6 +124,11 @@ SousCategory{category(libile)} to Category
 relationship ManyToOne
 {
 Lasession{category(libile)} to Category
+
+}
+relationship ManyToOne
+{
+CommandeInscriptions{inscription} to Inscription
 
 }
 
@@ -51,6 +144,38 @@ Inscription{Concerne(Code)} to Lasession
 
 relationship ManyToMany
 {
-Enfant{Parent(login)} to User
+Enfant{Parent(login) required} to User
 
+}
+relationship OneToOne
+{
+CommandeInscriptions{facture(numero)} to Facture
+}
+relationship ManyToOne
+{
+Paiement{facture(numero)} to Facture
+}
+relationship ManyToOne
+{
+CommandeInscriptions{remise(numero)} to Remise
+}
+relationship ManyToOne
+{
+Remise{typeremise(numero)} to TypeRemise
+}
+relationship ManyToMany
+{
+Groupe{enfant} to Enfant{groupe(numero)} 
+}
+relationship ManyToOne{
+Cours{souscategory(libille)} to SousCategory{cours}
+}
+relationship OneToMany{
+Groupe{creneau} to Creneau{groupe}
+}
+relationship OneToOne{
+Creneau{salle(numero)} to Salle
+}
+relationship ManyToOne{
+Groupe{cours} to Cours{groupe}
 }
