@@ -126,8 +126,8 @@ public class SousCategoryResource {
             .findById(sousCategory.getId())
             .map(
                 existingSousCategory -> {
-                    if (sousCategory.getLibile() != null) {
-                        existingSousCategory.setLibile(sousCategory.getLibile());
+                    if (sousCategory.getLibille() != null) {
+                        existingSousCategory.setLibille(sousCategory.getLibille());
                     }
                     if (sousCategory.getDescription() != null) {
                         existingSousCategory.setDescription(sousCategory.getDescription());

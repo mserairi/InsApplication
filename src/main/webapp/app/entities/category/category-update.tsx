@@ -76,14 +76,14 @@ export const CategoryUpdate = (props: ICategoryUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="libileLabel" for="category-libile">
-                  <Translate contentKey="insApplicationApp.category.libile">Libile</Translate>
+                <Label id="libilleLabel" for="category-libille">
+                  <Translate contentKey="insApplicationApp.category.libille">Libille</Translate>
                 </Label>
                 <AvField
-                  id="category-libile"
-                  data-cy="libile"
+                  id="category-libille"
+                  data-cy="libille"
                   type="text"
-                  name="libile"
+                  name="libille"
                   validate={{
                     required: { value: true, errorMessage: translate('entity.validation.required') },
                   }}

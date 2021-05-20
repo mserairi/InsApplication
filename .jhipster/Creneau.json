@@ -27,7 +27,7 @@
       "otherEntityName": "salle",
       "otherEntityRelationshipName": "creneau",
       "relationshipName": "salle",
-      "otherEntityField": "numero",
+      "otherEntityField": "code",
       "ownerSide": true
     },
     {

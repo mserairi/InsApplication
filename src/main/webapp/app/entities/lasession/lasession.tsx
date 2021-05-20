@@ -80,7 +80,7 @@ export const Lasession = (props: ILasessionProps) => {
                   <td>{lasession.tarif}</td>
                   <td>{lasession.debut ? <TextFormat type="date" value={lasession.debut} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{lasession.fin ? <TextFormat type="date" value={lasession.fin} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{lasession.category ? <Link to={`category/${lasession.category.id}`}>{lasession.category.libile}</Link> : ''}</td>
+                  <td>{lasession.category ? <Link to={`category/${lasession.category.id}`}>{lasession.category.libille}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${lasession.id}`} color="info" size="sm" data-cy="entityDetailsButton">

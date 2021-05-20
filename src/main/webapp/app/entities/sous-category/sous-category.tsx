@@ -47,7 +47,7 @@ export const SousCategory = (props: ISousCategoryProps) => {
                   <Translate contentKey="insApplicationApp.sousCategory.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="insApplicationApp.sousCategory.libile">Libile</Translate>
+                  <Translate contentKey="insApplicationApp.sousCategory.libille">Libille</Translate>
                 </th>
                 <th>
                   <Translate contentKey="insApplicationApp.sousCategory.description">Description</Translate>
@@ -66,7 +66,7 @@ export const SousCategory = (props: ISousCategoryProps) => {
                       {sousCategory.id}
                     </Button>
                   </td>
-                  <td>{sousCategory.libile}</td>
+                  <td>{sousCategory.libille}</td>
                   <td>{sousCategory.description}</td>
                   <td>
                     {sousCategory.category ? <Link to={`category/${sousCategory.category.id}`}>{sousCategory.category.libile}</Link> : ''}

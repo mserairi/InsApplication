@@ -29,8 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CategoryResourceIT {
 
-    private static final String DEFAULT_LIBILE = "AAAAAAAAAA";
-    private static final String UPDATED_LIBILE = "BBBBBBBBBB";
+    private static final String DEFAULT_LIBILLE = "AAAAAAAAAA";
+    private static final String UPDATED_LIBILLE = "BBBBBBBBBB";
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
@@ -59,7 +59,7 @@ class CategoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Category createEntity(EntityManager em) {
-        Category category = new Category().libile(DEFAULT_LIBILE).description(DEFAULT_DESCRIPTION);
+        Category category = new Category().libille(DEFAULT_LIBILLE).description(DEFAULT_DESCRIPTION);
         return category;
     }
 
@@ -70,7 +70,7 @@ class CategoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Category createUpdatedEntity(EntityManager em) {
-        Category category = new Category().libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
+        Category category = new Category().libille(UPDATED_LIBILLE).description(UPDATED_DESCRIPTION);
         return category;
     }
 
@@ -92,7 +92,7 @@ class CategoryResourceIT {
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeCreate + 1);
         Category testCategory = categoryList.get(categoryList.size() - 1);
-        assertThat(testCategory.getLibile()).isEqualTo(DEFAULT_LIBILE);
+        assertThat(testCategory.getLibille()).isEqualTo(DEFAULT_LIBILLE);
         assertThat(testCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
@@ -116,10 +116,10 @@ class CategoryResourceIT {
 
     @Test
     @Transactional
-    void checkLibileIsRequired() throws Exception {
+    void checkLibilleIsRequired() throws Exception {
         int databaseSizeBeforeTest = categoryRepository.findAll().size();
         // set the field null
-        category.setLibile(null);
+        category.setLibille(null);
 
         // Create the Category, which fails.
 
@@ -160,7 +160,7 @@ class CategoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(category.getId().intValue())))
-            .andExpect(jsonPath("$.[*].libile").value(hasItem(DEFAULT_LIBILE)))
+            .andExpect(jsonPath("$.[*].libille").value(hasItem(DEFAULT_LIBILLE)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
@@ -176,7 +176,7 @@ class CategoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(category.getId().intValue()))
-            .andExpect(jsonPath("$.libile").value(DEFAULT_LIBILE))
+            .andExpect(jsonPath("$.libille").value(DEFAULT_LIBILLE))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
@@ -199,7 +199,7 @@ class CategoryResourceIT {
         Category updatedCategory = categoryRepository.findById(category.getId()).get();
         // Disconnect from session so that the updates on updatedCategory are not directly saved in db
         em.detach(updatedCategory);
-        updatedCategory.libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
+        updatedCategory.libille(UPDATED_LIBILLE).description(UPDATED_DESCRIPTION);
 
         restCategoryMockMvc
             .perform(
@@ -213,7 +213,7 @@ class CategoryResourceIT {
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeUpdate);
         Category testCategory = categoryList.get(categoryList.size() - 1);
-        assertThat(testCategory.getLibile()).isEqualTo(UPDATED_LIBILE);
+        assertThat(testCategory.getLibille()).isEqualTo(UPDATED_LIBILLE);
         assertThat(testCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
@@ -297,7 +297,7 @@ class CategoryResourceIT {
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeUpdate);
         Category testCategory = categoryList.get(categoryList.size() - 1);
-        assertThat(testCategory.getLibile()).isEqualTo(DEFAULT_LIBILE);
+        assertThat(testCategory.getLibille()).isEqualTo(DEFAULT_LIBILLE);
         assertThat(testCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
@@ -313,7 +313,7 @@ class CategoryResourceIT {
         Category partialUpdatedCategory = new Category();
         partialUpdatedCategory.setId(category.getId());
 
-        partialUpdatedCategory.libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
+        partialUpdatedCategory.libille(UPDATED_LIBILLE).description(UPDATED_DESCRIPTION);
 
         restCategoryMockMvc
             .perform(
@@ -327,7 +327,7 @@ class CategoryResourceIT {
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeUpdate);
         Category testCategory = categoryList.get(categoryList.size() - 1);
-        assertThat(testCategory.getLibile()).isEqualTo(UPDATED_LIBILE);
+        assertThat(testCategory.getLibille()).isEqualTo(UPDATED_LIBILLE);
         assertThat(testCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 

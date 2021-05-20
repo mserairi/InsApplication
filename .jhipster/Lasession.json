@@ -30,7 +30,7 @@
       "otherEntityName": "category",
       "otherEntityRelationshipName": "lasession",
       "relationshipName": "category",
-      "otherEntityField": "libile"
+      "otherEntityField": "libille"
     }
   ],
   "entityTableName": "lasession",

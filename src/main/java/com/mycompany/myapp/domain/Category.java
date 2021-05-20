@@ -22,8 +22,8 @@ public class Category implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "libile", nullable = false)
-    private String libile;
+    @Column(name = "libille", nullable = false)
+    private String libille;
 
     @NotNull
     @Column(name = "description", nullable = false)
@@ -43,17 +43,17 @@ public class Category implements Serializable {
         return this;
     }
 
-    public String getLibile() {
-        return this.libile;
+    public String getLibille() {
+        return this.libille;
     }
 
-    public Category libile(String libile) {
-        this.libile = libile;
+    public Category libille(String libille) {
+        this.libille = libille;
         return this;
     }
 
-    public void setLibile(String libile) {
-        this.libile = libile;
+    public void setLibille(String libille) {
+        this.libille = libille;
     }
 
     public String getDescription() {
@@ -93,7 +93,7 @@ public class Category implements Serializable {
     public String toString() {
         return "Category{" +
             "id=" + getId() +
-            ", libile='" + getLibile() + "'" +
+            ", libille='" + getLibille() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }
