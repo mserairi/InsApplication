@@ -1,0 +1,67 @@
+{
+  "name": "Cours",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "libille",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "seuil",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "duree",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "periode",
+      "fieldType": "PERIODICITE",
+      "fieldValues": "HEBDOMADAIRE,MENSUEL,TRIMESTRIEL,PONCTUEL"
+    },
+    {
+      "fieldName": "frequence",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "agiminrec",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "agemaxrec",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sousCategory",
+      "otherEntityRelationshipName": "cours",
+      "relationshipName": "souscategory",
+      "otherEntityField": "libille"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "groupe",
+      "otherEntityRelationshipName": "cours",
+      "relationshipName": "groupe"
+    }
+  ],
+  "entityTableName": "cours",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210520170259"
+}

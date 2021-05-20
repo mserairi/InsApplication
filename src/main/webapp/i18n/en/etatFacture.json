@@ -1,0 +1,10 @@
+{
+  "insApplicationApp": {
+    "EtatFacture": {
+      "null": "",
+      "NONACQUITEE": "NONACQUITEE",
+      "ACQUITEE": "ACQUITEE",
+      "PARTIELLE": "PARTIELLE"
+    }
+  }
+}

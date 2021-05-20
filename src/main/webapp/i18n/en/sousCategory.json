@@ -20,7 +20,8 @@
       "id": "ID",
       "libile": "Libile",
       "description": "Description",
-      "category": "Category"
+      "category": "Category",
+      "cours": "Cours"
     }
   }
 }

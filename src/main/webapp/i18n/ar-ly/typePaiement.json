@@ -1,0 +1,11 @@
+{
+  "insApplicationApp": {
+    "TypePaiement": {
+      "null": "",
+      "ENLIGNE": "ENLIGNE",
+      "SPCARTE": "SPCARTE",
+      "SPLIQUIDE": "SPLIQUIDE",
+      "SPESPECE": "SPESPECE"
+    }
+  }
+}

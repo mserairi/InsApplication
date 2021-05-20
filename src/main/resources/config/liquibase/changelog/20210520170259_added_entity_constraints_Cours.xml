@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Cours.
+    -->
+    <changeSet id="20210520170259-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="souscategory_id"
+                                 baseTableName="cours"
+                                 constraintName="fk_cours__souscategory_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sous_category"/>
+    </changeSet>
+</databaseChangeLog>

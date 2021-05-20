@@ -19,6 +19,12 @@
       "otherEntityRelationshipName": "sousCategory",
       "relationshipName": "category",
       "otherEntityField": "libile"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "cours",
+      "otherEntityRelationshipName": "souscategory",
+      "relationshipName": "cours"
     }
   ],
   "entityTableName": "sous_category",

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity CommandeInscriptions.
+    -->
+    <changeSet id="20210520170254-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="facture_id"
+                                 baseTableName="commande_inscriptions"
+                                 constraintName="fk_commande_inscriptions__facture_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="facture"/>
+
+        <addForeignKeyConstraint baseColumnNames="inscription_id"
+                                 baseTableName="commande_inscriptions"
+                                 constraintName="fk_commande_inscriptions__inscription_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="inscription"/>
+
+        <addForeignKeyConstraint baseColumnNames="remise_id"
+                                 baseTableName="commande_inscriptions"
+                                 constraintName="fk_commande_inscriptions__remise_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="remise"/>
+    </changeSet>
+</databaseChangeLog>

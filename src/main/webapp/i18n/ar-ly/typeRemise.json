@@ -1,0 +1,28 @@
+{
+  "insApplicationApp": {
+    "typeRemise": {
+      "home": {
+        "title": "Type Remises",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Type Remise",
+        "createOrEditLabel": "Create or edit a Type Remise",
+        "notFound": "No Type Remises found"
+      },
+      "created": "A new Type Remise is created with identifier {{ param }}",
+      "updated": "A Type Remise is updated with identifier {{ param }}",
+      "deleted": "A Type Remise is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Type Remise {{ id }}?"
+      },
+      "detail": {
+        "title": "Type Remise"
+      },
+      "id": "ID",
+      "numero": "Numero",
+      "libille": "Libille",
+      "condition": "Condition",
+      "mantantLibre": "Mantant Libre",
+      "montantUnitaire": "Montant Unitaire"
+    }
+  }
+}

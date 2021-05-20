@@ -32,6 +32,42 @@ import sousCategory, {
 import lasession, {
   LasessionState
 } from 'app/entities/lasession/lasession.reducer';
+// prettier-ignore
+import commandeInscriptions, {
+  CommandeInscriptionsState
+} from 'app/entities/commande-inscriptions/commande-inscriptions.reducer';
+// prettier-ignore
+import typeRemise, {
+  TypeRemiseState
+} from 'app/entities/type-remise/type-remise.reducer';
+// prettier-ignore
+import remise, {
+  RemiseState
+} from 'app/entities/remise/remise.reducer';
+// prettier-ignore
+import facture, {
+  FactureState
+} from 'app/entities/facture/facture.reducer';
+// prettier-ignore
+import paiement, {
+  PaiementState
+} from 'app/entities/paiement/paiement.reducer';
+// prettier-ignore
+import cours, {
+  CoursState
+} from 'app/entities/cours/cours.reducer';
+// prettier-ignore
+import groupe, {
+  GroupeState
+} from 'app/entities/groupe/groupe.reducer';
+// prettier-ignore
+import creneau, {
+  CreneauState
+} from 'app/entities/creneau/creneau.reducer';
+// prettier-ignore
+import salle, {
+  SalleState
+} from 'app/entities/salle/salle.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -50,6 +86,15 @@ export interface IRootState {
   readonly inscription: InscriptionState;
   readonly sousCategory: SousCategoryState;
   readonly lasession: LasessionState;
+  readonly commandeInscriptions: CommandeInscriptionsState;
+  readonly typeRemise: TypeRemiseState;
+  readonly remise: RemiseState;
+  readonly facture: FactureState;
+  readonly paiement: PaiementState;
+  readonly cours: CoursState;
+  readonly groupe: GroupeState;
+  readonly creneau: CreneauState;
+  readonly salle: SalleState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -70,6 +115,15 @@ const rootReducer = combineReducers<IRootState>({
   inscription,
   sousCategory,
   lasession,
+  commandeInscriptions,
+  typeRemise,
+  remise,
+  facture,
+  paiement,
+  cours,
+  groupe,
+  creneau,
+  salle,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

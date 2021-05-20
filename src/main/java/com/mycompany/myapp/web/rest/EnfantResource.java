@@ -132,8 +132,14 @@ public class EnfantResource {
                     if (enfant.getPrenom() != null) {
                         existingEnfant.setPrenom(enfant.getPrenom());
                     }
-                    if (enfant.getAge() != null) {
-                        existingEnfant.setAge(enfant.getAge());
+                    if (enfant.getDateNaissance() != null) {
+                        existingEnfant.setDateNaissance(enfant.getDateNaissance());
+                    }
+                    if (enfant.getAutorisationImage() != null) {
+                        existingEnfant.setAutorisationImage(enfant.getAutorisationImage());
+                    }
+                    if (enfant.getInfoSante() != null) {
+                        existingEnfant.setInfoSante(enfant.getInfoSante());
                     }
 
                     return existingEnfant;

@@ -1,0 +1,5 @@
+export enum TYPECRENEAU {
+  PONCTUEL = 'PONCTUEL',
+
+  REPETETIF = 'REPETETIF',
+}

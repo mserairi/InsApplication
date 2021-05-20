@@ -57,6 +57,20 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.Inscription.class.getName() + ".inscrits");
             createCache(cm, com.mycompany.myapp.domain.SousCategory.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Lasession.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Enfant.class.getName() + ".groupes");
+            createCache(cm, com.mycompany.myapp.domain.SousCategory.class.getName() + ".cours");
+            createCache(cm, com.mycompany.myapp.domain.CommandeInscriptions.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.TypeRemise.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Remise.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Facture.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Paiement.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Cours.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Cours.class.getName() + ".groupes");
+            createCache(cm, com.mycompany.myapp.domain.Groupe.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Groupe.class.getName() + ".creneaus");
+            createCache(cm, com.mycompany.myapp.domain.Groupe.class.getName() + ".enfants");
+            createCache(cm, com.mycompany.myapp.domain.Creneau.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Salle.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

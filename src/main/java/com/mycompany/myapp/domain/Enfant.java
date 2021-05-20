@@ -2,6 +2,7 @@ package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -32,11 +33,18 @@ public class Enfant implements Serializable {
     @Column(name = "prenom", nullable = false)
     private String prenom;
 
-    @Column(name = "age")
-    private Integer age;
+    @Column(name = "date_naissance")
+    private Instant dateNaissance;
+
+    @Column(name = "autorisation_image")
+    private Boolean autorisationImage;
+
+    @Column(name = "info_sante")
+    private String infoSante;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @NotNull
     @JoinTable(
         name = "rel_enfant__parent",
         joinColumns = @JoinColumn(name = "enfant_id"),
@@ -48,6 +56,11 @@ public class Enfant implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "concerne", "inscrits" }, allowSetters = true)
     private Set<Inscription> suivres = new HashSet<>();
+
+    @ManyToMany(mappedBy = "enfants")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "creneaus", "cours", "enfants" }, allowSetters = true)
+    private Set<Groupe> groupes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -89,17 +102,43 @@ public class Enfant implements Serializable {
         this.prenom = prenom;
     }
 
-    public Integer getAge() {
-        return this.age;
+    public Instant getDateNaissance() {
+        return this.dateNaissance;
     }
 
-    public Enfant age(Integer age) {
-        this.age = age;
+    public Enfant dateNaissance(Instant dateNaissance) {
+        this.dateNaissance = dateNaissance;
         return this;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setDateNaissance(Instant dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    public Boolean getAutorisationImage() {
+        return this.autorisationImage;
+    }
+
+    public Enfant autorisationImage(Boolean autorisationImage) {
+        this.autorisationImage = autorisationImage;
+        return this;
+    }
+
+    public void setAutorisationImage(Boolean autorisationImage) {
+        this.autorisationImage = autorisationImage;
+    }
+
+    public String getInfoSante() {
+        return this.infoSante;
+    }
+
+    public Enfant infoSante(String infoSante) {
+        this.infoSante = infoSante;
+        return this;
+    }
+
+    public void setInfoSante(String infoSante) {
+        this.infoSante = infoSante;
     }
 
     public Set<User> getParents() {
@@ -156,6 +195,37 @@ public class Enfant implements Serializable {
         this.suivres = inscriptions;
     }
 
+    public Set<Groupe> getGroupes() {
+        return this.groupes;
+    }
+
+    public Enfant groupes(Set<Groupe> groupes) {
+        this.setGroupes(groupes);
+        return this;
+    }
+
+    public Enfant addGroupe(Groupe groupe) {
+        this.groupes.add(groupe);
+        groupe.getEnfants().add(this);
+        return this;
+    }
+
+    public Enfant removeGroupe(Groupe groupe) {
+        this.groupes.remove(groupe);
+        groupe.getEnfants().remove(this);
+        return this;
+    }
+
+    public void setGroupes(Set<Groupe> groupes) {
+        if (this.groupes != null) {
+            this.groupes.forEach(i -> i.removeEnfant(this));
+        }
+        if (groupes != null) {
+            groupes.forEach(i -> i.addEnfant(this));
+        }
+        this.groupes = groupes;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -182,7 +252,9 @@ public class Enfant implements Serializable {
             "id=" + getId() +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
-            ", age=" + getAge() +
+            ", dateNaissance='" + getDateNaissance() + "'" +
+            ", autorisationImage='" + getAutorisationImage() + "'" +
+            ", infoSante='" + getInfoSante() + "'" +
             "}";
     }
 }
