@@ -81,14 +81,14 @@ export const SousCategoryUpdate = (props: ISousCategoryUpdateProps) => {
                 </AvGroup>
               ) : null}
               <AvGroup>
-                <Label id="libileLabel" for="sous-category-libile">
-                  <Translate contentKey="insApplicationApp.sousCategory.libile">Libile</Translate>
+                <Label id="libilleLabel" for="sous-category-libille">
+                  <Translate contentKey="insApplicationApp.sousCategory.libille">Libille</Translate>
                 </Label>
                 <AvField
-                  id="sous-category-libile"
-                  data-cy="libile"
+                  id="sous-category-libille"
+                  data-cy="libille"
                   type="text"
-                  name="libile"
+                  name="libille"
                   validate={{
                     required: { value: true, errorMessage: translate('entity.validation.required') },
                   }}

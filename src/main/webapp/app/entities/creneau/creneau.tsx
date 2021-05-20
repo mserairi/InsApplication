@@ -83,7 +83,7 @@ export const Creneau = (props: ICreneauProps) => {
                   </td>
                   <td>{creneau.deb ? <TextFormat type="date" value={creneau.deb} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{creneau.fin ? <TextFormat type="date" value={creneau.fin} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{creneau.salle ? <Link to={`salle/${creneau.salle.id}`}>{creneau.salle.numero}</Link> : ''}</td>
+                  <td>{creneau.salle ? <Link to={`salle/${creneau.salle.id}`}>{creneau.salle.code}</Link> : ''}</td>
                   <td>{creneau.groupe ? <Link to={`groupe/${creneau.groupe.id}`}>{creneau.groupe.id}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

@@ -126,8 +126,8 @@ public class CategoryResource {
             .findById(category.getId())
             .map(
                 existingCategory -> {
-                    if (category.getLibile() != null) {
-                        existingCategory.setLibile(category.getLibile());
+                    if (category.getLibille() != null) {
+                        existingCategory.setLibille(category.getLibille());
                     }
                     if (category.getDescription() != null) {
                         existingCategory.setDescription(category.getDescription());

@@ -25,8 +25,8 @@ public class SousCategory implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "libile", nullable = false)
-    private String libile;
+    @Column(name = "libille", nullable = false)
+    private String libille;
 
     @NotNull
     @Column(name = "description", nullable = false)
@@ -54,17 +54,17 @@ public class SousCategory implements Serializable {
         return this;
     }
 
-    public String getLibile() {
-        return this.libile;
+    public String getLibille() {
+        return this.libille;
     }
 
-    public SousCategory libile(String libile) {
-        this.libile = libile;
+    public SousCategory libille(String libille) {
+        this.libille = libille;
         return this;
     }
 
-    public void setLibile(String libile) {
-        this.libile = libile;
+    public void setLibille(String libille) {
+        this.libille = libille;
     }
 
     public String getDescription() {
@@ -148,7 +148,7 @@ public class SousCategory implements Serializable {
     public String toString() {
         return "SousCategory{" +
             "id=" + getId() +
-            ", libile='" + getLibile() + "'" +
+            ", libille='" + getLibille() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

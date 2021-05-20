@@ -2,7 +2,7 @@
   "name": "SousCategory",
   "fields": [
     {
-      "fieldName": "libile",
+      "fieldName": "libille",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },

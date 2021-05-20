@@ -57,7 +57,7 @@ export const CreneauDetail = (props: ICreneauDetailProps) => {
           <dt>
             <Translate contentKey="insApplicationApp.creneau.salle">Salle</Translate>
           </dt>
-          <dd>{creneauEntity.salle ? creneauEntity.salle.numero : ''}</dd>
+          <dd>{creneauEntity.salle ? creneauEntity.salle.code : ''}</dd>
           <dt>
             <Translate contentKey="insApplicationApp.creneau.groupe">Groupe</Translate>
           </dt>

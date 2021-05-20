@@ -47,7 +47,7 @@ export const Category = (props: ICategoryProps) => {
                   <Translate contentKey="insApplicationApp.category.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="insApplicationApp.category.libile">Libile</Translate>
+                  <Translate contentKey="insApplicationApp.category.libille">Libille</Translate>
                 </th>
                 <th>
                   <Translate contentKey="insApplicationApp.category.description">Description</Translate>
@@ -63,7 +63,7 @@ export const Category = (props: ICategoryProps) => {
                       {category.id}
                     </Button>
                   </td>
-                  <td>{category.libile}</td>
+                  <td>{category.libille}</td>
                   <td>{category.description}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

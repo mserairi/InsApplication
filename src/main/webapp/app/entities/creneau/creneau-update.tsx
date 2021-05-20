@@ -161,7 +161,7 @@ export const CreneauUpdate = (props: ICreneauUpdateProps) => {
                   {salles
                     ? salles.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.numero}
+                          {otherEntity.code}
                         </option>
                       ))
                     : null}

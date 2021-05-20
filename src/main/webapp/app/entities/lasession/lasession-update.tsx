@@ -154,7 +154,7 @@ export const LasessionUpdate = (props: ILasessionUpdateProps) => {
                   {categories
                     ? categories.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.libile}
+                          {otherEntity.libille}
                         </option>
                       ))
                     : null}

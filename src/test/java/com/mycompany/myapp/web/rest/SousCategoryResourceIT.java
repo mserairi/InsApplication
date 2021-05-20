@@ -29,8 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class SousCategoryResourceIT {
 
-    private static final String DEFAULT_LIBILE = "AAAAAAAAAA";
-    private static final String UPDATED_LIBILE = "BBBBBBBBBB";
+    private static final String DEFAULT_LIBILLE = "AAAAAAAAAA";
+    private static final String UPDATED_LIBILLE = "BBBBBBBBBB";
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
@@ -59,7 +59,7 @@ class SousCategoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static SousCategory createEntity(EntityManager em) {
-        SousCategory sousCategory = new SousCategory().libile(DEFAULT_LIBILE).description(DEFAULT_DESCRIPTION);
+        SousCategory sousCategory = new SousCategory().libille(DEFAULT_LIBILLE).description(DEFAULT_DESCRIPTION);
         return sousCategory;
     }
 
@@ -70,7 +70,7 @@ class SousCategoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static SousCategory createUpdatedEntity(EntityManager em) {
-        SousCategory sousCategory = new SousCategory().libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
+        SousCategory sousCategory = new SousCategory().libille(UPDATED_LIBILLE).description(UPDATED_DESCRIPTION);
         return sousCategory;
     }
 
@@ -92,7 +92,7 @@ class SousCategoryResourceIT {
         List<SousCategory> sousCategoryList = sousCategoryRepository.findAll();
         assertThat(sousCategoryList).hasSize(databaseSizeBeforeCreate + 1);
         SousCategory testSousCategory = sousCategoryList.get(sousCategoryList.size() - 1);
-        assertThat(testSousCategory.getLibile()).isEqualTo(DEFAULT_LIBILE);
+        assertThat(testSousCategory.getLibille()).isEqualTo(DEFAULT_LIBILLE);
         assertThat(testSousCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
@@ -116,10 +116,10 @@ class SousCategoryResourceIT {
 
     @Test
     @Transactional
-    void checkLibileIsRequired() throws Exception {
+    void checkLibilleIsRequired() throws Exception {
         int databaseSizeBeforeTest = sousCategoryRepository.findAll().size();
         // set the field null
-        sousCategory.setLibile(null);
+        sousCategory.setLibille(null);
 
         // Create the SousCategory, which fails.
 
@@ -160,7 +160,7 @@ class SousCategoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(sousCategory.getId().intValue())))
-            .andExpect(jsonPath("$.[*].libile").value(hasItem(DEFAULT_LIBILE)))
+            .andExpect(jsonPath("$.[*].libille").value(hasItem(DEFAULT_LIBILLE)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
@@ -176,7 +176,7 @@ class SousCategoryResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(sousCategory.getId().intValue()))
-            .andExpect(jsonPath("$.libile").value(DEFAULT_LIBILE))
+            .andExpect(jsonPath("$.libille").value(DEFAULT_LIBILLE))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
@@ -199,7 +199,7 @@ class SousCategoryResourceIT {
         SousCategory updatedSousCategory = sousCategoryRepository.findById(sousCategory.getId()).get();
         // Disconnect from session so that the updates on updatedSousCategory are not directly saved in db
         em.detach(updatedSousCategory);
-        updatedSousCategory.libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
+        updatedSousCategory.libille(UPDATED_LIBILLE).description(UPDATED_DESCRIPTION);
 
         restSousCategoryMockMvc
             .perform(
@@ -213,7 +213,7 @@ class SousCategoryResourceIT {
         List<SousCategory> sousCategoryList = sousCategoryRepository.findAll();
         assertThat(sousCategoryList).hasSize(databaseSizeBeforeUpdate);
         SousCategory testSousCategory = sousCategoryList.get(sousCategoryList.size() - 1);
-        assertThat(testSousCategory.getLibile()).isEqualTo(UPDATED_LIBILE);
+        assertThat(testSousCategory.getLibille()).isEqualTo(UPDATED_LIBILLE);
         assertThat(testSousCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
@@ -285,7 +285,7 @@ class SousCategoryResourceIT {
         SousCategory partialUpdatedSousCategory = new SousCategory();
         partialUpdatedSousCategory.setId(sousCategory.getId());
 
-        partialUpdatedSousCategory.libile(UPDATED_LIBILE);
+        partialUpdatedSousCategory.libille(UPDATED_LIBILLE);
 
         restSousCategoryMockMvc
             .perform(
@@ -299,7 +299,7 @@ class SousCategoryResourceIT {
         List<SousCategory> sousCategoryList = sousCategoryRepository.findAll();
         assertThat(sousCategoryList).hasSize(databaseSizeBeforeUpdate);
         SousCategory testSousCategory = sousCategoryList.get(sousCategoryList.size() - 1);
-        assertThat(testSousCategory.getLibile()).isEqualTo(UPDATED_LIBILE);
+        assertThat(testSousCategory.getLibille()).isEqualTo(UPDATED_LIBILLE);
         assertThat(testSousCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
@@ -315,7 +315,7 @@ class SousCategoryResourceIT {
         SousCategory partialUpdatedSousCategory = new SousCategory();
         partialUpdatedSousCategory.setId(sousCategory.getId());
 
-        partialUpdatedSousCategory.libile(UPDATED_LIBILE).description(UPDATED_DESCRIPTION);
+        partialUpdatedSousCategory.libille(UPDATED_LIBILLE).description(UPDATED_DESCRIPTION);
 
         restSousCategoryMockMvc
             .perform(
@@ -329,7 +329,7 @@ class SousCategoryResourceIT {
         List<SousCategory> sousCategoryList = sousCategoryRepository.findAll();
         assertThat(sousCategoryList).hasSize(databaseSizeBeforeUpdate);
         SousCategory testSousCategory = sousCategoryList.get(sousCategoryList.size() - 1);
-        assertThat(testSousCategory.getLibile()).isEqualTo(UPDATED_LIBILE);
+        assertThat(testSousCategory.getLibille()).isEqualTo(UPDATED_LIBILLE);
         assertThat(testSousCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 

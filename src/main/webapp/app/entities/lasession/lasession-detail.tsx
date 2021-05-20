@@ -63,7 +63,7 @@ export const LasessionDetail = (props: ILasessionDetailProps) => {
           <dt>
             <Translate contentKey="insApplicationApp.lasession.category">Category</Translate>
           </dt>
-          <dd>{lasessionEntity.category ? lasessionEntity.category.libile : ''}</dd>
+          <dd>{lasessionEntity.category ? lasessionEntity.category.libille : ''}</dd>
         </dl>
         <Button tag={Link} to="/lasession" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

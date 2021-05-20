@@ -1,6 +1,6 @@
 export interface ICategory {
   id?: number;
-  libile?: string;
+  libille?: string;
   description?: string;
 }
 

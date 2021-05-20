@@ -31,11 +31,11 @@ export const SousCategoryDetail = (props: ISousCategoryDetailProps) => {
           </dt>
           <dd>{sousCategoryEntity.id}</dd>
           <dt>
-            <span id="libile">
-              <Translate contentKey="insApplicationApp.sousCategory.libile">Libile</Translate>
+            <span id="libille">
+              <Translate contentKey="insApplicationApp.sousCategory.libille">Libille</Translate>
             </span>
           </dt>
-          <dd>{sousCategoryEntity.libile}</dd>
+          <dd>{sousCategoryEntity.libille}</dd>
           <dt>
             <span id="description">
               <Translate contentKey="insApplicationApp.sousCategory.description">Description</Translate>
