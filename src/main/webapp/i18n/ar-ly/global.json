@@ -12,6 +12,15 @@
         "inscription": "Inscription",
         "sousCategory": "Sous Category",
         "lasession": "Lasession",
+        "commandeInscriptions": "Commande Inscriptions",
+        "typeRemise": "Type Remise",
+        "remise": "Remise",
+        "facture": "Facture",
+        "paiement": "Paiement",
+        "cours": "Cours",
+        "groupe": "Groupe",
+        "creneau": "Creneau",
+        "salle": "Salle",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

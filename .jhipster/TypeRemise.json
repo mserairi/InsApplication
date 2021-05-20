@@ -1,0 +1,36 @@
+{
+  "name": "TypeRemise",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "libille",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "condition",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mantantLibre",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "montantUnitaire",
+      "fieldType": "Float"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "type_remise",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210520170255"
+}

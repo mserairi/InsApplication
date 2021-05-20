@@ -41,7 +41,7 @@ public class Inscription implements Serializable {
         joinColumns = @JoinColumn(name = "inscription_id"),
         inverseJoinColumns = @JoinColumn(name = "inscrits_id")
     )
-    @JsonIgnoreProperties(value = { "parents", "suivres" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "parents", "suivres", "groupes" }, allowSetters = true)
     private Set<Enfant> inscrits = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

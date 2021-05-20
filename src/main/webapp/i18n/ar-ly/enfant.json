@@ -20,9 +20,12 @@
       "id": "ID",
       "nom": "Nom",
       "prenom": "Prenom",
-      "age": "Age",
+      "dateNaissance": "Date Naissance",
+      "autorisationImage": "Autorisation Image",
+      "infoSante": "Info Sante",
       "parent": "Parent",
-      "suivre": "Suivre"
+      "suivre": "Suivre",
+      "groupe": "Groupe"
     }
   }
 }

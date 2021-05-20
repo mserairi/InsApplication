@@ -1,0 +1,41 @@
+{
+  "name": "Paiement",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "montant",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "TypePaiement",
+      "fieldValues": "ENLIGNE,SPCARTE,SPLIQUIDE,SPESPECE"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "facture",
+      "otherEntityRelationshipName": "paiement",
+      "relationshipName": "facture",
+      "otherEntityField": "numero"
+    }
+  ],
+  "entityTableName": "paiement",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210520170258"
+}

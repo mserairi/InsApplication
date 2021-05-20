@@ -1,0 +1,10 @@
+{
+  "insApplicationApp": {
+    "Etatcommande": {
+      "null": "",
+      "ENCOURS": "ENCOURS",
+      "TRAITEE": "TRAITEE",
+      "VALIDATIONPARTIELLE": "VALIDATIONPARTIELLE"
+    }
+  }
+}

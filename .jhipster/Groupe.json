@@ -1,0 +1,52 @@
+{
+  "name": "Groupe",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "libille",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lasession",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nbrApprenant",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "creneau",
+      "otherEntityRelationshipName": "groupe",
+      "relationshipName": "creneau"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "cours",
+      "otherEntityRelationshipName": "groupe",
+      "relationshipName": "cours"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "enfant",
+      "otherEntityRelationshipName": "groupe",
+      "relationshipName": "enfant",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "groupe",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210520170300"
+}

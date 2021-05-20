@@ -1,6 +1,9 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -31,6 +34,11 @@ public class SousCategory implements Serializable {
 
     @ManyToOne
     private Category category;
+
+    @OneToMany(mappedBy = "souscategory")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "souscategory", "groupes" }, allowSetters = true)
+    private Set<Cours> cours = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -83,6 +91,37 @@ public class SousCategory implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<Cours> getCours() {
+        return this.cours;
+    }
+
+    public SousCategory cours(Set<Cours> cours) {
+        this.setCours(cours);
+        return this;
+    }
+
+    public SousCategory addCours(Cours cours) {
+        this.cours.add(cours);
+        cours.setSouscategory(this);
+        return this;
+    }
+
+    public SousCategory removeCours(Cours cours) {
+        this.cours.remove(cours);
+        cours.setSouscategory(null);
+        return this;
+    }
+
+    public void setCours(Set<Cours> cours) {
+        if (this.cours != null) {
+            this.cours.forEach(i -> i.setSouscategory(null));
+        }
+        if (cours != null) {
+            cours.forEach(i -> i.setSouscategory(this));
+        }
+        this.cours = cours;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

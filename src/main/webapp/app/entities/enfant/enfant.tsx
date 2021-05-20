@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate } from 'react-jhipster';
+import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -53,7 +53,13 @@ export const Enfant = (props: IEnfantProps) => {
                   <Translate contentKey="insApplicationApp.enfant.prenom">Prenom</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="insApplicationApp.enfant.age">Age</Translate>
+                  <Translate contentKey="insApplicationApp.enfant.dateNaissance">Date Naissance</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.autorisationImage">Autorisation Image</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.infoSante">Info Sante</Translate>
                 </th>
                 <th>
                   <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
@@ -71,7 +77,9 @@ export const Enfant = (props: IEnfantProps) => {
                   </td>
                   <td>{enfant.nom}</td>
                   <td>{enfant.prenom}</td>
-                  <td>{enfant.age}</td>
+                  <td>{enfant.dateNaissance ? <TextFormat type="date" value={enfant.dateNaissance} format={APP_DATE_FORMAT} /> : null}</td>
+                  <td>{enfant.autorisationImage ? 'true' : 'false'}</td>
+                  <td>{enfant.infoSante}</td>
                   <td>
                     {enfant.parents
                       ? enfant.parents.map((val, j) => (

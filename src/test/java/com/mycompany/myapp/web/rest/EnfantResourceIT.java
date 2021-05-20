@@ -8,7 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Enfant;
+import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.EnfantRepository;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,8 +46,14 @@ class EnfantResourceIT {
     private static final String DEFAULT_PRENOM = "AAAAAAAAAA";
     private static final String UPDATED_PRENOM = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_AGE = 1;
-    private static final Integer UPDATED_AGE = 2;
+    private static final Instant DEFAULT_DATE_NAISSANCE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATE_NAISSANCE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Boolean DEFAULT_AUTORISATION_IMAGE = false;
+    private static final Boolean UPDATED_AUTORISATION_IMAGE = true;
+
+    private static final String DEFAULT_INFO_SANTE = "AAAAAAAAAA";
+    private static final String UPDATED_INFO_SANTE = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/enfants";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -73,7 +82,17 @@ class EnfantResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Enfant createEntity(EntityManager em) {
-        Enfant enfant = new Enfant().nom(DEFAULT_NOM).prenom(DEFAULT_PRENOM).age(DEFAULT_AGE);
+        Enfant enfant = new Enfant()
+            .nom(DEFAULT_NOM)
+            .prenom(DEFAULT_PRENOM)
+            .dateNaissance(DEFAULT_DATE_NAISSANCE)
+            .autorisationImage(DEFAULT_AUTORISATION_IMAGE)
+            .infoSante(DEFAULT_INFO_SANTE);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        enfant.getParents().add(user);
         return enfant;
     }
 
@@ -84,7 +103,17 @@ class EnfantResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Enfant createUpdatedEntity(EntityManager em) {
-        Enfant enfant = new Enfant().nom(UPDATED_NOM).prenom(UPDATED_PRENOM).age(UPDATED_AGE);
+        Enfant enfant = new Enfant()
+            .nom(UPDATED_NOM)
+            .prenom(UPDATED_PRENOM)
+            .dateNaissance(UPDATED_DATE_NAISSANCE)
+            .autorisationImage(UPDATED_AUTORISATION_IMAGE)
+            .infoSante(UPDATED_INFO_SANTE);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        enfant.getParents().add(user);
         return enfant;
     }
 
@@ -108,7 +137,9 @@ class EnfantResourceIT {
         Enfant testEnfant = enfantList.get(enfantList.size() - 1);
         assertThat(testEnfant.getNom()).isEqualTo(DEFAULT_NOM);
         assertThat(testEnfant.getPrenom()).isEqualTo(DEFAULT_PRENOM);
-        assertThat(testEnfant.getAge()).isEqualTo(DEFAULT_AGE);
+        assertThat(testEnfant.getDateNaissance()).isEqualTo(DEFAULT_DATE_NAISSANCE);
+        assertThat(testEnfant.getAutorisationImage()).isEqualTo(DEFAULT_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getInfoSante()).isEqualTo(DEFAULT_INFO_SANTE);
     }
 
     @Test
@@ -177,7 +208,9 @@ class EnfantResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(enfant.getId().intValue())))
             .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
             .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM)))
-            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)));
+            .andExpect(jsonPath("$.[*].dateNaissance").value(hasItem(DEFAULT_DATE_NAISSANCE.toString())))
+            .andExpect(jsonPath("$.[*].autorisationImage").value(hasItem(DEFAULT_AUTORISATION_IMAGE.booleanValue())))
+            .andExpect(jsonPath("$.[*].infoSante").value(hasItem(DEFAULT_INFO_SANTE)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -212,7 +245,9 @@ class EnfantResourceIT {
             .andExpect(jsonPath("$.id").value(enfant.getId().intValue()))
             .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
             .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM))
-            .andExpect(jsonPath("$.age").value(DEFAULT_AGE));
+            .andExpect(jsonPath("$.dateNaissance").value(DEFAULT_DATE_NAISSANCE.toString()))
+            .andExpect(jsonPath("$.autorisationImage").value(DEFAULT_AUTORISATION_IMAGE.booleanValue()))
+            .andExpect(jsonPath("$.infoSante").value(DEFAULT_INFO_SANTE));
     }
 
     @Test
@@ -234,7 +269,12 @@ class EnfantResourceIT {
         Enfant updatedEnfant = enfantRepository.findById(enfant.getId()).get();
         // Disconnect from session so that the updates on updatedEnfant are not directly saved in db
         em.detach(updatedEnfant);
-        updatedEnfant.nom(UPDATED_NOM).prenom(UPDATED_PRENOM).age(UPDATED_AGE);
+        updatedEnfant
+            .nom(UPDATED_NOM)
+            .prenom(UPDATED_PRENOM)
+            .dateNaissance(UPDATED_DATE_NAISSANCE)
+            .autorisationImage(UPDATED_AUTORISATION_IMAGE)
+            .infoSante(UPDATED_INFO_SANTE);
 
         restEnfantMockMvc
             .perform(
@@ -250,7 +290,9 @@ class EnfantResourceIT {
         Enfant testEnfant = enfantList.get(enfantList.size() - 1);
         assertThat(testEnfant.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testEnfant.getPrenom()).isEqualTo(UPDATED_PRENOM);
-        assertThat(testEnfant.getAge()).isEqualTo(UPDATED_AGE);
+        assertThat(testEnfant.getDateNaissance()).isEqualTo(UPDATED_DATE_NAISSANCE);
+        assertThat(testEnfant.getAutorisationImage()).isEqualTo(UPDATED_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getInfoSante()).isEqualTo(UPDATED_INFO_SANTE);
     }
 
     @Test
@@ -321,7 +363,7 @@ class EnfantResourceIT {
         Enfant partialUpdatedEnfant = new Enfant();
         partialUpdatedEnfant.setId(enfant.getId());
 
-        partialUpdatedEnfant.age(UPDATED_AGE);
+        partialUpdatedEnfant.dateNaissance(UPDATED_DATE_NAISSANCE).infoSante(UPDATED_INFO_SANTE);
 
         restEnfantMockMvc
             .perform(
@@ -337,7 +379,9 @@ class EnfantResourceIT {
         Enfant testEnfant = enfantList.get(enfantList.size() - 1);
         assertThat(testEnfant.getNom()).isEqualTo(DEFAULT_NOM);
         assertThat(testEnfant.getPrenom()).isEqualTo(DEFAULT_PRENOM);
-        assertThat(testEnfant.getAge()).isEqualTo(UPDATED_AGE);
+        assertThat(testEnfant.getDateNaissance()).isEqualTo(UPDATED_DATE_NAISSANCE);
+        assertThat(testEnfant.getAutorisationImage()).isEqualTo(DEFAULT_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getInfoSante()).isEqualTo(UPDATED_INFO_SANTE);
     }
 
     @Test
@@ -352,7 +396,12 @@ class EnfantResourceIT {
         Enfant partialUpdatedEnfant = new Enfant();
         partialUpdatedEnfant.setId(enfant.getId());
 
-        partialUpdatedEnfant.nom(UPDATED_NOM).prenom(UPDATED_PRENOM).age(UPDATED_AGE);
+        partialUpdatedEnfant
+            .nom(UPDATED_NOM)
+            .prenom(UPDATED_PRENOM)
+            .dateNaissance(UPDATED_DATE_NAISSANCE)
+            .autorisationImage(UPDATED_AUTORISATION_IMAGE)
+            .infoSante(UPDATED_INFO_SANTE);
 
         restEnfantMockMvc
             .perform(
@@ -368,7 +417,9 @@ class EnfantResourceIT {
         Enfant testEnfant = enfantList.get(enfantList.size() - 1);
         assertThat(testEnfant.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testEnfant.getPrenom()).isEqualTo(UPDATED_PRENOM);
-        assertThat(testEnfant.getAge()).isEqualTo(UPDATED_AGE);
+        assertThat(testEnfant.getDateNaissance()).isEqualTo(UPDATED_DATE_NAISSANCE);
+        assertThat(testEnfant.getAutorisationImage()).isEqualTo(UPDATED_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getInfoSante()).isEqualTo(UPDATED_INFO_SANTE);
     }
 
     @Test

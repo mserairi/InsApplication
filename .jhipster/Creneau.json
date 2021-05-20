@@ -1,0 +1,50 @@
+{
+  "name": "Creneau",
+  "fields": [
+    {
+      "fieldName": "typeCreneau",
+      "fieldType": "TYPECRENEAU",
+      "fieldValues": "PONCTUEL,REPETETIF",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "jour",
+      "fieldType": "JourSemaine",
+      "fieldValues": "LUNDI,MARDI,MERCREDI,JEUDI,VENDREDI,SAMEDI,DIMANCHE"
+    },
+    {
+      "fieldName": "deb",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "fin",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "salle",
+      "otherEntityRelationshipName": "creneau",
+      "relationshipName": "salle",
+      "otherEntityField": "numero",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "groupe",
+      "otherEntityRelationshipName": "creneau",
+      "relationshipName": "groupe"
+    }
+  ],
+  "entityTableName": "creneau",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210520170301"
+}

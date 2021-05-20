@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Creneau.
+    -->
+    <changeSet id="20210520170301-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="salle_id"
+                                 baseTableName="creneau"
+                                 constraintName="fk_creneau__salle_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="salle"/>
+
+        <addForeignKeyConstraint baseColumnNames="groupe_id"
+                                 baseTableName="creneau"
+                                 constraintName="fk_creneau__groupe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="groupe"/>
+    </changeSet>
+</databaseChangeLog>

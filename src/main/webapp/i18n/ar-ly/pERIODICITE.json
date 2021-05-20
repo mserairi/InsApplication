@@ -1,0 +1,11 @@
+{
+  "insApplicationApp": {
+    "PERIODICITE": {
+      "null": "",
+      "HEBDOMADAIRE": "HEBDOMADAIRE",
+      "MENSUEL": "MENSUEL",
+      "TRIMESTRIEL": "TRIMESTRIEL",
+      "PONCTUEL": "PONCTUEL"
+    }
+  }
+}

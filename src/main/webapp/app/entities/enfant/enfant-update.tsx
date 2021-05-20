@@ -11,6 +11,8 @@ import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IInscription } from 'app/shared/model/inscription.model';
 import { getEntities as getInscriptions } from 'app/entities/inscription/inscription.reducer';
+import { IGroupe } from 'app/shared/model/groupe.model';
+import { getEntities as getGroupes } from 'app/entities/groupe/groupe.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './enfant.reducer';
 import { IEnfant } from 'app/shared/model/enfant.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -22,7 +24,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
   const [idsparent, setIdsparent] = useState([]);
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { enfantEntity, users, inscriptions, loading, updating } = props;
+  const { enfantEntity, users, inscriptions, groupes, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/enfant');
@@ -37,6 +39,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
 
     props.getUsers();
     props.getInscriptions();
+    props.getGroupes();
   }, []);
 
   useEffect(() => {
@@ -46,6 +49,8 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
   }, [props.updateSuccess]);
 
   const saveEntity = (event, errors, values) => {
+    values.dateNaissance = convertDateTimeToServer(values.dateNaissance);
+
     if (errors.length === 0) {
       const entity = {
         ...enfantEntity,
@@ -113,10 +118,36 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                 />
               </AvGroup>
               <AvGroup>
-                <Label id="ageLabel" for="enfant-age">
-                  <Translate contentKey="insApplicationApp.enfant.age">Age</Translate>
+                <Label id="dateNaissanceLabel" for="enfant-dateNaissance">
+                  <Translate contentKey="insApplicationApp.enfant.dateNaissance">Date Naissance</Translate>
                 </Label>
-                <AvField id="enfant-age" data-cy="age" type="string" className="form-control" name="age" />
+                <AvInput
+                  id="enfant-dateNaissance"
+                  data-cy="dateNaissance"
+                  type="datetime-local"
+                  className="form-control"
+                  name="dateNaissance"
+                  placeholder={'YYYY-MM-DD HH:mm'}
+                  value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.enfantEntity.dateNaissance)}
+                />
+              </AvGroup>
+              <AvGroup check>
+                <Label id="autorisationImageLabel">
+                  <AvInput
+                    id="enfant-autorisationImage"
+                    data-cy="autorisationImage"
+                    type="checkbox"
+                    className="form-check-input"
+                    name="autorisationImage"
+                  />
+                  <Translate contentKey="insApplicationApp.enfant.autorisationImage">Autorisation Image</Translate>
+                </Label>
+              </AvGroup>
+              <AvGroup>
+                <Label id="infoSanteLabel" for="enfant-infoSante">
+                  <Translate contentKey="insApplicationApp.enfant.infoSante">Info Sante</Translate>
+                </Label>
+                <AvField id="enfant-infoSante" data-cy="infoSante" type="text" name="infoSante" />
               </AvGroup>
               <AvGroup>
                 <Label for="enfant-parent">
@@ -165,6 +196,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
   inscriptions: storeState.inscription.entities,
+  groupes: storeState.groupe.entities,
   enfantEntity: storeState.enfant.entity,
   loading: storeState.enfant.loading,
   updating: storeState.enfant.updating,
@@ -174,6 +206,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getUsers,
   getInscriptions,
+  getGroupes,
   getEntity,
   updateEntity,
   createEntity,

@@ -1,0 +1,55 @@
+{
+  "name": "CommandeInscriptions",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "totalAvantRemise",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "totalRemise",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Etatcommande",
+      "fieldValues": "ENCOURS,TRAITEE,VALIDATIONPARTIELLE"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "facture",
+      "otherEntityRelationshipName": "commandeInscriptions",
+      "relationshipName": "facture",
+      "otherEntityField": "numero",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "inscription",
+      "otherEntityRelationshipName": "commandeInscriptions",
+      "relationshipName": "inscription"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "remise",
+      "otherEntityRelationshipName": "commandeInscriptions",
+      "relationshipName": "remise",
+      "otherEntityField": "numero"
+    }
+  ],
+  "entityTableName": "commande_inscriptions",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210520170254"
+}

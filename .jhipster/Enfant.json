@@ -12,8 +12,16 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "age",
-      "fieldType": "Integer"
+      "fieldName": "dateNaissance",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "autorisationImage",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "infoSante",
+      "fieldType": "String"
     }
   ],
   "relationships": [
@@ -21,6 +29,7 @@
       "relationshipType": "many-to-many",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "enfant",
+      "relationshipValidateRules": "required",
       "relationshipName": "parent",
       "otherEntityField": "login",
       "ownerSide": true
@@ -31,6 +40,14 @@
       "otherEntityRelationshipName": "inscrits",
       "relationshipName": "suivre",
       "otherEntityField": "lasession",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "groupe",
+      "otherEntityRelationshipName": "enfant",
+      "relationshipName": "groupe",
+      "otherEntityField": "numero",
       "ownerSide": false
     }
   ],

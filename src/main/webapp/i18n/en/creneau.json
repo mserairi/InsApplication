@@ -1,0 +1,29 @@
+{
+  "insApplicationApp": {
+    "creneau": {
+      "home": {
+        "title": "Creneaus",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Creneau",
+        "createOrEditLabel": "Create or edit a Creneau",
+        "notFound": "No Creneaus found"
+      },
+      "created": "A new Creneau is created with identifier {{ param }}",
+      "updated": "A Creneau is updated with identifier {{ param }}",
+      "deleted": "A Creneau is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Creneau {{ id }}?"
+      },
+      "detail": {
+        "title": "Creneau"
+      },
+      "id": "ID",
+      "typeCreneau": "Type Creneau",
+      "jour": "Jour",
+      "deb": "Deb",
+      "fin": "Fin",
+      "salle": "Salle",
+      "groupe": "Groupe"
+    }
+  }
+}

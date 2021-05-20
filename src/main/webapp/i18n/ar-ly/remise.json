@@ -1,0 +1,27 @@
+{
+  "insApplicationApp": {
+    "remise": {
+      "home": {
+        "title": "Remises",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Remise",
+        "createOrEditLabel": "Create or edit a Remise",
+        "notFound": "No Remises found"
+      },
+      "created": "A new Remise is created with identifier {{ param }}",
+      "updated": "A Remise is updated with identifier {{ param }}",
+      "deleted": "A Remise is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Remise {{ id }}?"
+      },
+      "detail": {
+        "title": "Remise"
+      },
+      "id": "ID",
+      "numero": "Numero",
+      "montant": "Montant",
+      "descreption": "Descreption",
+      "typeremise": "Typeremise"
+    }
+  }
+}
