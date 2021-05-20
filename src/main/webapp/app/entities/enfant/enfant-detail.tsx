@@ -65,16 +65,7 @@ export const EnfantDetail = (props: IEnfantDetailProps) => {
           <dt>
             <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
           </dt>
-          <dd>
-            {enfantEntity.parents
-              ? enfantEntity.parents.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.login}</a>
-                    {enfantEntity.parents && i === enfantEntity.parents.length - 1 ? '' : ', '}
-                  </span>
-                ))
-              : null}{' '}
-          </dd>
+          <dd>{enfantEntity.parent ? enfantEntity.parent.login : ''}</dd>
         </dl>
         <Button tag={Link} to="/enfant" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

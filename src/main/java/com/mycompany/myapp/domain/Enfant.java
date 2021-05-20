@@ -42,15 +42,9 @@ public class Enfant implements Serializable {
     @Column(name = "info_sante")
     private String infoSante;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinTable(
-        name = "rel_enfant__parent",
-        joinColumns = @JoinColumn(name = "enfant_id"),
-        inverseJoinColumns = @JoinColumn(name = "parent_id")
-    )
-    private Set<User> parents = new HashSet<>();
+    private User parent;
 
     @ManyToMany(mappedBy = "inscrits")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -141,27 +135,17 @@ public class Enfant implements Serializable {
         this.infoSante = infoSante;
     }
 
-    public Set<User> getParents() {
-        return this.parents;
+    public User getParent() {
+        return this.parent;
     }
 
-    public Enfant parents(Set<User> users) {
-        this.setParents(users);
+    public Enfant parent(User user) {
+        this.setParent(user);
         return this;
     }
 
-    public Enfant addParent(User user) {
-        this.parents.add(user);
-        return this;
-    }
-
-    public Enfant removeParent(User user) {
-        this.parents.remove(user);
-        return this;
-    }
-
-    public void setParents(Set<User> users) {
-        this.parents = users;
+    public void setParent(User user) {
+        this.parent = user;
     }
 
     public Set<Inscription> getSuivres() {

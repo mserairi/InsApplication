@@ -8,15 +8,9 @@
     -->
     <changeSet id="20210518154716-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="enfant_id"
-                                 baseTableName="rel_enfant__parent"
-                                 constraintName="fk_rel_enfant__parent__enfant_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="enfant"/>
-
         <addForeignKeyConstraint baseColumnNames="parent_id"
-                                 baseTableName="rel_enfant__parent"
-                                 constraintName="fk_rel_enfant__parent__parent_id"
+                                 baseTableName="enfant"
+                                 constraintName="fk_enfant__parent_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
     </changeSet>

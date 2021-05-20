@@ -26,13 +26,12 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-many",
+      "relationshipType": "many-to-one",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "enfant",
       "relationshipValidateRules": "required",
       "relationshipName": "parent",
-      "otherEntityField": "login",
-      "ownerSide": true
+      "otherEntityField": "login"
     },
     {
       "relationshipType": "many-to-many",

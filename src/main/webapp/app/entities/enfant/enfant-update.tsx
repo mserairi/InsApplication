@@ -21,7 +21,6 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IEnfantUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const EnfantUpdate = (props: IEnfantUpdateProps) => {
-  const [idsparent, setIdsparent] = useState([]);
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const { enfantEntity, users, inscriptions, groupes, loading, updating } = props;
@@ -55,7 +54,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
       const entity = {
         ...enfantEntity,
         ...values,
-        parents: mapIdList(values.parents),
+        parent: users.find(it => it.id.toString() === values.parentId.toString()),
       };
 
       if (isNew) {
@@ -153,15 +152,7 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                 <Label for="enfant-parent">
                   <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
                 </Label>
-                <AvInput
-                  id="enfant-parent"
-                  data-cy="parent"
-                  type="select"
-                  multiple
-                  className="form-control"
-                  name="parents"
-                  value={!isNew && enfantEntity.parents && enfantEntity.parents.map(e => e.id)}
-                >
+                <AvInput id="enfant-parent" data-cy="parent" type="select" className="form-control" name="parentId" required>
                   <option value="" key="0" />
                   {users
                     ? users.map(otherEntity => (
@@ -171,6 +162,9 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                       ))
                     : null}
                 </AvInput>
+                <AvFeedback>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </AvFeedback>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/enfant" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
