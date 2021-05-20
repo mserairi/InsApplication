@@ -9,11 +9,11 @@ entity Enfant {
   
 }
 entity Category {
-   libile String required
+   libille String required
    description String required
 }
 entity SousCategory {
-   libile String required
+   libille String required
    description String required
 }
 
@@ -123,7 +123,7 @@ SousCategory{category(libile)} to Category
 }
 relationship ManyToOne
 {
-Lasession{category(libile)} to Category
+Lasession{category(libille)} to Category
 
 }
 relationship ManyToOne
@@ -174,7 +174,7 @@ relationship OneToMany{
 Groupe{creneau} to Creneau{groupe}
 }
 relationship OneToOne{
-Creneau{salle(numero)} to Salle
+Creneau{salle(code)} to Salle
 }
 relationship ManyToOne{
 Groupe{cours} to Cours{groupe}
