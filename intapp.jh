@@ -118,7 +118,7 @@ entity Salle {
 
 relationship ManyToOne
 {
-SousCategory{category(libile)} to Category
+SousCategory{category(libille)} to Category
 
 }
 relationship ManyToOne
