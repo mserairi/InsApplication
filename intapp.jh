@@ -1,4 +1,8 @@
 
+deployment {
+ 
+ appsFolders [store, invoice, notification, product]
+ }
 entity Enfant {
 	nom String required
     prenom String required
