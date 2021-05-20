@@ -18,7 +18,7 @@
       "otherEntityName": "category",
       "otherEntityRelationshipName": "sousCategory",
       "relationshipName": "category",
-      "otherEntityField": "libile"
+      "otherEntityField": "libille"
     },
     {
       "relationshipType": "one-to-many",

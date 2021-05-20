@@ -69,7 +69,7 @@ export const SousCategory = (props: ISousCategoryProps) => {
                   <td>{sousCategory.libille}</td>
                   <td>{sousCategory.description}</td>
                   <td>
-                    {sousCategory.category ? <Link to={`category/${sousCategory.category.id}`}>{sousCategory.category.libile}</Link> : ''}
+                    {sousCategory.category ? <Link to={`category/${sousCategory.category.id}`}>{sousCategory.category.libille}</Link> : ''}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
