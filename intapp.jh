@@ -142,7 +142,7 @@ relationship ManyToOne
 Inscription{Concerne(Code)} to Lasession
 }
 
-relationship ManyToMany
+relationship ManyToOne
 {
 Enfant{Parent(login) required} to User
 
