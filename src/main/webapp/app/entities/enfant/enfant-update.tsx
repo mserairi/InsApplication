@@ -9,10 +9,6 @@ import { IRootState } from 'app/shared/reducers';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { IInscription } from 'app/shared/model/inscription.model';
-import { getEntities as getInscriptions } from 'app/entities/inscription/inscription.reducer';
-import { IGroupe } from 'app/shared/model/groupe.model';
-import { getEntities as getGroupes } from 'app/entities/groupe/groupe.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './enfant.reducer';
 import { IEnfant } from 'app/shared/model/enfant.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -23,7 +19,7 @@ export interface IEnfantUpdateProps extends StateProps, DispatchProps, RouteComp
 export const EnfantUpdate = (props: IEnfantUpdateProps) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { enfantEntity, users, inscriptions, groupes, loading, updating } = props;
+  const { enfantEntity, users, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/enfant');
@@ -37,8 +33,6 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
     }
 
     props.getUsers();
-    props.getInscriptions();
-    props.getGroupes();
   }, []);
 
   useEffect(() => {
@@ -130,6 +124,68 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.enfantEntity.dateNaissance)}
                 />
               </AvGroup>
+              <AvGroup>
+                <Label id="genreLabel" for="enfant-genre">
+                  <Translate contentKey="insApplicationApp.enfant.genre">Genre</Translate>
+                </Label>
+                <AvInput
+                  id="enfant-genre"
+                  data-cy="genre"
+                  type="select"
+                  className="form-control"
+                  name="genre"
+                  value={(!isNew && enfantEntity.genre) || 'MASCULIN'}
+                >
+                  <option value="MASCULIN">{translate('insApplicationApp.TypeGenre.MASCULIN')}</option>
+                  <option value="FEMININ">{translate('insApplicationApp.TypeGenre.FEMININ')}</option>
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label id="nomParent2Label" for="enfant-nomParent2">
+                  <Translate contentKey="insApplicationApp.enfant.nomParent2">Nom Parent 2</Translate>
+                </Label>
+                <AvField id="enfant-nomParent2" data-cy="nomParent2" type="text" name="nomParent2" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="prenomParent2Label" for="enfant-prenomParent2">
+                  <Translate contentKey="insApplicationApp.enfant.prenomParent2">Prenom Parent 2</Translate>
+                </Label>
+                <AvField id="enfant-prenomParent2" data-cy="prenomParent2" type="text" name="prenomParent2" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="mobParent2Label" for="enfant-mobParent2">
+                  <Translate contentKey="insApplicationApp.enfant.mobParent2">Mob Parent 2</Translate>
+                </Label>
+                <AvField
+                  id="enfant-mobParent2"
+                  data-cy="mobParent2"
+                  type="text"
+                  name="mobParent2"
+                  validate={{
+                    pattern: { value: '^\\d{10,10}$', errorMessage: translate('entity.validation.pattern', { pattern: '^\\d{10,10}$' }) },
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
+                <Label id="emailParent2Label" for="enfant-emailParent2">
+                  <Translate contentKey="insApplicationApp.enfant.emailParent2">Email Parent 2</Translate>
+                </Label>
+                <AvField
+                  id="enfant-emailParent2"
+                  data-cy="emailParent2"
+                  type="text"
+                  name="emailParent2"
+                  validate={{
+                    pattern: { value: '^.+@.+$', errorMessage: translate('entity.validation.pattern', { pattern: '^.+@.+$' }) },
+                  }}
+                />
+              </AvGroup>
+              <AvGroup>
+                <Label id="infoSanteLabel" for="enfant-infoSante">
+                  <Translate contentKey="insApplicationApp.enfant.infoSante">Info Sante</Translate>
+                </Label>
+                <AvField id="enfant-infoSante" data-cy="infoSante" type="text" name="infoSante" />
+              </AvGroup>
               <AvGroup check>
                 <Label id="autorisationImageLabel">
                   <AvInput
@@ -143,10 +199,24 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
                 </Label>
               </AvGroup>
               <AvGroup>
-                <Label id="infoSanteLabel" for="enfant-infoSante">
-                  <Translate contentKey="insApplicationApp.enfant.infoSante">Info Sante</Translate>
+                <Label id="nomContactLabel" for="enfant-nomContact">
+                  <Translate contentKey="insApplicationApp.enfant.nomContact">Nom Contact</Translate>
                 </Label>
-                <AvField id="enfant-infoSante" data-cy="infoSante" type="text" name="infoSante" />
+                <AvField id="enfant-nomContact" data-cy="nomContact" type="text" name="nomContact" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="mobContactLabel" for="enfant-mobContact">
+                  <Translate contentKey="insApplicationApp.enfant.mobContact">Mob Contact</Translate>
+                </Label>
+                <AvField
+                  id="enfant-mobContact"
+                  data-cy="mobContact"
+                  type="text"
+                  name="mobContact"
+                  validate={{
+                    pattern: { value: '^\\d{10,10}$', errorMessage: translate('entity.validation.pattern', { pattern: '^\\d{10,10}$' }) },
+                  }}
+                />
               </AvGroup>
               <AvGroup>
                 <Label for="enfant-parent">
@@ -189,8 +259,6 @@ export const EnfantUpdate = (props: IEnfantUpdateProps) => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
-  inscriptions: storeState.inscription.entities,
-  groupes: storeState.groupe.entities,
   enfantEntity: storeState.enfant.entity,
   loading: storeState.enfant.loading,
   updating: storeState.enfant.updating,
@@ -199,8 +267,6 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getUsers,
-  getInscriptions,
-  getGroupes,
   getEntity,
   updateEntity,
   createEntity,

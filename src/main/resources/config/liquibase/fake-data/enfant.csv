@@ -1,11 +1,11 @@
-id;nom;prenom;date_naissance;autorisation_image;info_sante;parent_id
-1;Automotive Gold;Handcrafted PNG;2021-05-18T04:40:03;true;Won circuit circuit;1
-2;Soap invoice;Utah AI Haiti;2021-05-17T17:00:15;true;Brunei Markets CSS;2
-3;payment Unbranded;Corporate multi-byte;2021-05-18T05:05:39;true;Bedfordshire Loan Phased;1
-4;quantifying Usability;Buckinghamshire;2021-05-18T04:38:31;true;green Walks platforms;1
-5;Frozen copy Ball;matrices solution;2021-05-18T02:18:59;true;Clothing;2
-6;Operations orchid;Organized bypass bypassing;2021-05-17T22:23:38;false;Brand input;1
-7;Inlet;support Future Rubber;2021-05-17T22:58:15;true;Vermont;2
-8;Nepal;Account gold;2021-05-18T07:00:44;true;distributed leading;2
-9;copying Concrete Codes;Engineer Executive;2021-05-18T04:23:44;false;Via;1
-10;Car;Democratic Buckinghamshire Metrics;2021-05-17T18:36:54;false;Web Books haptic;2
+id;nom;prenom;date_naissance;genre;nom_parent_2;prenom_parent_2;mob_parent_2;email_parent_2;info_sante;autorisation_image;nom_contact;mob_contact;parent_id
+1;Automotive Gold;Handcrafted PNG;2021-05-18T04:40:03;FEMININ;Won circuit circuit;Soap invoice;"5898395379";"k`)!{@`t2";open-source Account;true;Corporate multi-byte;"9842568526";1
+2;applications Sausages;Networked;2021-05-17T22:04:35;MASCULIN;digital Account redundant;panel users Concrete;"5338158207";"T{QS@\>";Organized bypass bypassing;true;Vista;"7771436629";2
+3;Future;Account;2021-05-18T00:56:12;MASCULIN;HTTP Nepal;Account gold;"5535125278";"u%H@H\";Research Engineer Executive;false;heuristic;"0101954657";1
+4;Metrics CSS Web;Toys;2021-05-18T03:06:39;FEMININ;synergies Tuna copy;Outdoors;"5982269523";"\IbNV:@EnO{jL";up target;true;Group Movies methodologies;"8790615492";1
+5;Loan;application;2021-05-18T01:22:58;MASCULIN;Djibouti;Engineer;"6781084658";"EBkDj@W>T";Pizza;true;Afghani Savings;"3414805386";2
+6;Beauty Horizontal Florida;Rubber;2021-05-18T05:10:03;FEMININ;Fiji;navigating alliance;"2438779147";"FJ[5/@L61";Islands Soft Springs;false;Berkshire;"5996319385";1
+7;Lithuanian monitoring silver;e-commerce high-level Caribbean;2021-05-17T15:57:16;FEMININ;feed;Fresh Tasty Gloves;"5945767026";"+@G<";architect Borders;true;PCI;"8354015576";2
+8;Synergistic 24/365 Gloves;Beauty models;2021-05-18T06:15:29;MASCULIN;24/365;Alley bluetooth supply-chains;"2144184390";")\Gjl@qly";vertical model;false;synergize;"0766825765";2
+9;primary Metal 3rd;Connecticut Progressive Nicaragua;2021-05-17T22:04:06;MASCULIN;Oregon;override;"6011206414";"4@T$qk";COM Incredible;true;Accountability;"5244403742";1
+10;Credit Account deliverables;fuchsia;2021-05-18T01:21:16;MASCULIN;systemic;Principal Croatia Plastic;"6066961001";"&@x";overriding;true;Nebraska hacking Shoes;"1251937871";2

@@ -56,10 +56,31 @@ export const Enfant = (props: IEnfantProps) => {
                   <Translate contentKey="insApplicationApp.enfant.dateNaissance">Date Naissance</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="insApplicationApp.enfant.autorisationImage">Autorisation Image</Translate>
+                  <Translate contentKey="insApplicationApp.enfant.genre">Genre</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.nomParent2">Nom Parent 2</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.prenomParent2">Prenom Parent 2</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.mobParent2">Mob Parent 2</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.emailParent2">Email Parent 2</Translate>
                 </th>
                 <th>
                   <Translate contentKey="insApplicationApp.enfant.infoSante">Info Sante</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.autorisationImage">Autorisation Image</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.nomContact">Nom Contact</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.enfant.mobContact">Mob Contact</Translate>
                 </th>
                 <th>
                   <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
@@ -78,8 +99,17 @@ export const Enfant = (props: IEnfantProps) => {
                   <td>{enfant.nom}</td>
                   <td>{enfant.prenom}</td>
                   <td>{enfant.dateNaissance ? <TextFormat type="date" value={enfant.dateNaissance} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{enfant.autorisationImage ? 'true' : 'false'}</td>
+                  <td>
+                    <Translate contentKey={`insApplicationApp.TypeGenre.${enfant.genre}`} />
+                  </td>
+                  <td>{enfant.nomParent2}</td>
+                  <td>{enfant.prenomParent2}</td>
+                  <td>{enfant.mobParent2}</td>
+                  <td>{enfant.emailParent2}</td>
                   <td>{enfant.infoSante}</td>
+                  <td>{enfant.autorisationImage ? 'true' : 'false'}</td>
+                  <td>{enfant.nomContact}</td>
+                  <td>{enfant.mobContact}</td>
                   <td>{enfant.parent ? enfant.parent.login : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

@@ -68,6 +68,14 @@ import creneau, {
 import salle, {
   SalleState
 } from 'app/entities/salle/salle.reducer';
+// prettier-ignore
+import formation, {
+  FormationState
+} from 'app/entities/formation/formation.reducer';
+// prettier-ignore
+import userExtras, {
+  UserExtrasState
+} from 'app/entities/user-extras/user-extras.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -95,6 +103,8 @@ export interface IRootState {
   readonly groupe: GroupeState;
   readonly creneau: CreneauState;
   readonly salle: SalleState;
+  readonly formation: FormationState;
+  readonly userExtras: UserExtrasState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -124,6 +134,8 @@ const rootReducer = combineReducers<IRootState>({
   groupe,
   creneau,
   salle,
+  formation,
+  userExtras,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

@@ -57,9 +57,11 @@
       "Cours",
       "Groupe",
       "Creneau",
-      "Salle"
+      "Salle",
+      "Formation",
+      "UserExtras"
     ],
-    "lastLiquibaseTimestamp": 1621530182000
+    "lastLiquibaseTimestamp": 1623522174000
   },
   "git-provider": "GitHub",
   "git-company": "mserairi",

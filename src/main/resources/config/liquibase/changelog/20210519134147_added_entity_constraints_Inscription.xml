@@ -8,22 +8,16 @@
     -->
     <changeSet id="20210519134147-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="concerne_id"
+        <addForeignKeyConstraint baseColumnNames="inscrit_id"
                                  baseTableName="inscription"
-                                 constraintName="fk_inscription__concerne_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="lasession"/>
-
-        <addForeignKeyConstraint baseColumnNames="inscription_id"
-                                 baseTableName="rel_inscription__inscrits"
-                                 constraintName="fk_rel_inscription__inscrits__inscription_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="inscription"/>
-
-        <addForeignKeyConstraint baseColumnNames="inscrits_id"
-                                 baseTableName="rel_inscription__inscrits"
-                                 constraintName="fk_rel_inscription__inscrits__inscrits_id"
+                                 constraintName="fk_inscription__inscrit_id"
                                  referencedColumnNames="id"
                                  referencedTableName="enfant"/>
+
+        <addForeignKeyConstraint baseColumnNames="formation_id"
+                                 baseTableName="inscription"
+                                 constraintName="fk_inscription__formation_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="formation"/>
     </changeSet>
 </databaseChangeLog>

@@ -18,6 +18,8 @@ import Cours from './cours';
 import Groupe from './groupe';
 import Creneau from './creneau';
 import Salle from './salle';
+import Formation from './formation';
+import UserExtras from './user-extras';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -38,6 +40,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}groupe`} component={Groupe} />
       <ErrorBoundaryRoute path={`${match.url}creneau`} component={Creneau} />
       <ErrorBoundaryRoute path={`${match.url}salle`} component={Salle} />
+      <ErrorBoundaryRoute path={`${match.url}formation`} component={Formation} />
+      <ErrorBoundaryRoute path={`${match.url}user-extras`} component={UserExtras} />
       {/* jhipster-needle-add-route-path - JHipster will add routes here */}
     </Switch>
   </div>

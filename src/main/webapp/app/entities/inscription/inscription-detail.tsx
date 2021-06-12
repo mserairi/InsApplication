@@ -45,24 +45,27 @@ export const InscriptionDetail = (props: IInscriptionDetailProps) => {
               <Translate contentKey="insApplicationApp.inscription.status">Status</Translate>
             </span>
           </dt>
-          <dd>{inscriptionEntity.status ? 'true' : 'false'}</dd>
+          <dd>{inscriptionEntity.status}</dd>
           <dt>
-            <Translate contentKey="insApplicationApp.inscription.concerne">Concerne</Translate>
+            <span id="remarques">
+              <Translate contentKey="insApplicationApp.inscription.remarques">Remarques</Translate>
+            </span>
           </dt>
-          <dd>{inscriptionEntity.concerne ? inscriptionEntity.concerne.code : ''}</dd>
+          <dd>{inscriptionEntity.remarques}</dd>
           <dt>
-            <Translate contentKey="insApplicationApp.inscription.inscrits">Inscrits</Translate>
+            <span id="instoLAT">
+              <Translate contentKey="insApplicationApp.inscription.instoLAT">Insto LAT</Translate>
+            </span>
           </dt>
-          <dd>
-            {inscriptionEntity.inscrits
-              ? inscriptionEntity.inscrits.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.id}</a>
-                    {inscriptionEntity.inscrits && i === inscriptionEntity.inscrits.length - 1 ? '' : ', '}
-                  </span>
-                ))
-              : null}
-          </dd>
+          <dd>{inscriptionEntity.instoLAT ? 'true' : 'false'}</dd>
+          <dt>
+            <Translate contentKey="insApplicationApp.inscription.inscrit">Inscrit</Translate>
+          </dt>
+          <dd>{inscriptionEntity.inscrit ? inscriptionEntity.inscrit.prenom : ''}</dd>
+          <dt>
+            <Translate contentKey="insApplicationApp.inscription.formation">Formation</Translate>
+          </dt>
+          <dd>{inscriptionEntity.formation ? inscriptionEntity.formation.libille : ''}</dd>
         </dl>
         <Button tag={Link} to="/inscription" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

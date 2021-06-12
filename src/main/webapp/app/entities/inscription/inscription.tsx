@@ -53,10 +53,16 @@ export const Inscription = (props: IInscriptionProps) => {
                   <Translate contentKey="insApplicationApp.inscription.status">Status</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="insApplicationApp.inscription.concerne">Concerne</Translate>
+                  <Translate contentKey="insApplicationApp.inscription.remarques">Remarques</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="insApplicationApp.inscription.inscrits">Inscrits</Translate>
+                  <Translate contentKey="insApplicationApp.inscription.instoLAT">Insto LAT</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.inscription.inscrit">Inscrit</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="insApplicationApp.inscription.formation">Formation</Translate>
                 </th>
                 <th />
               </tr>
@@ -74,19 +80,14 @@ export const Inscription = (props: IInscriptionProps) => {
                       <TextFormat type="date" value={inscription.dateinscription} format={APP_DATE_FORMAT} />
                     ) : null}
                   </td>
-                  <td>{inscription.status ? 'true' : 'false'}</td>
                   <td>
-                    {inscription.concerne ? <Link to={`lasession/${inscription.concerne.id}`}>{inscription.concerne.code}</Link> : ''}
+                    <Translate contentKey={`insApplicationApp.EtatInscription.${inscription.status}`} />
                   </td>
+                  <td>{inscription.remarques}</td>
+                  <td>{inscription.instoLAT ? 'true' : 'false'}</td>
+                  <td>{inscription.inscrit ? <Link to={`enfant/${inscription.inscrit.id}`}>{inscription.inscrit.prenom}</Link> : ''}</td>
                   <td>
-                    {inscription.inscrits
-                      ? inscription.inscrits.map((val, j) => (
-                          <span key={j}>
-                            <Link to={`enfant/${val.id}`}>{val.id}</Link>
-                            {j === inscription.inscrits.length - 1 ? '' : ', '}
-                          </span>
-                        ))
-                      : null}
+                    {inscription.formation ? <Link to={`formation/${inscription.formation.id}`}>{inscription.formation.libille}</Link> : ''}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

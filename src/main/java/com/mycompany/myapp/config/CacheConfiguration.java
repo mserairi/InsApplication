@@ -71,6 +71,8 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.Groupe.class.getName() + ".enfants");
             createCache(cm, com.mycompany.myapp.domain.Creneau.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Salle.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Formation.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.UserExtras.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

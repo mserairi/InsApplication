@@ -2,29 +2,25 @@ package com.mycompany.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
+import com.mycompany.myapp.domain.Enfant;
+import com.mycompany.myapp.domain.Formation;
 import com.mycompany.myapp.domain.Inscription;
+import com.mycompany.myapp.domain.enumeration.EtatInscription;
 import com.mycompany.myapp.repository.InscriptionRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -34,7 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link InscriptionResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class InscriptionResourceIT {
@@ -42,8 +37,14 @@ class InscriptionResourceIT {
     private static final Instant DEFAULT_DATEINSCRIPTION = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_DATEINSCRIPTION = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Boolean DEFAULT_STATUS = false;
-    private static final Boolean UPDATED_STATUS = true;
+    private static final EtatInscription DEFAULT_STATUS = EtatInscription.ENREGISTREE;
+    private static final EtatInscription UPDATED_STATUS = EtatInscription.LISTE_ATTENTE;
+
+    private static final String DEFAULT_REMARQUES = "AAAAAAAAAA";
+    private static final String UPDATED_REMARQUES = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_INSTO_LAT = false;
+    private static final Boolean UPDATED_INSTO_LAT = true;
 
     private static final String ENTITY_API_URL = "/api/inscriptions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -53,9 +54,6 @@ class InscriptionResourceIT {
 
     @Autowired
     private InscriptionRepository inscriptionRepository;
-
-    @Mock
-    private InscriptionRepository inscriptionRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -72,7 +70,31 @@ class InscriptionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Inscription createEntity(EntityManager em) {
-        Inscription inscription = new Inscription().dateinscription(DEFAULT_DATEINSCRIPTION).status(DEFAULT_STATUS);
+        Inscription inscription = new Inscription()
+            .dateinscription(DEFAULT_DATEINSCRIPTION)
+            .status(DEFAULT_STATUS)
+            .remarques(DEFAULT_REMARQUES)
+            .instoLAT(DEFAULT_INSTO_LAT);
+        // Add required entity
+        Enfant enfant;
+        if (TestUtil.findAll(em, Enfant.class).isEmpty()) {
+            enfant = EnfantResourceIT.createEntity(em);
+            em.persist(enfant);
+            em.flush();
+        } else {
+            enfant = TestUtil.findAll(em, Enfant.class).get(0);
+        }
+        inscription.setInscrit(enfant);
+        // Add required entity
+        Formation formation;
+        if (TestUtil.findAll(em, Formation.class).isEmpty()) {
+            formation = FormationResourceIT.createEntity(em);
+            em.persist(formation);
+            em.flush();
+        } else {
+            formation = TestUtil.findAll(em, Formation.class).get(0);
+        }
+        inscription.setFormation(formation);
         return inscription;
     }
 
@@ -83,7 +105,31 @@ class InscriptionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Inscription createUpdatedEntity(EntityManager em) {
-        Inscription inscription = new Inscription().dateinscription(UPDATED_DATEINSCRIPTION).status(UPDATED_STATUS);
+        Inscription inscription = new Inscription()
+            .dateinscription(UPDATED_DATEINSCRIPTION)
+            .status(UPDATED_STATUS)
+            .remarques(UPDATED_REMARQUES)
+            .instoLAT(UPDATED_INSTO_LAT);
+        // Add required entity
+        Enfant enfant;
+        if (TestUtil.findAll(em, Enfant.class).isEmpty()) {
+            enfant = EnfantResourceIT.createUpdatedEntity(em);
+            em.persist(enfant);
+            em.flush();
+        } else {
+            enfant = TestUtil.findAll(em, Enfant.class).get(0);
+        }
+        inscription.setInscrit(enfant);
+        // Add required entity
+        Formation formation;
+        if (TestUtil.findAll(em, Formation.class).isEmpty()) {
+            formation = FormationResourceIT.createUpdatedEntity(em);
+            em.persist(formation);
+            em.flush();
+        } else {
+            formation = TestUtil.findAll(em, Formation.class).get(0);
+        }
+        inscription.setFormation(formation);
         return inscription;
     }
 
@@ -107,6 +153,8 @@ class InscriptionResourceIT {
         Inscription testInscription = inscriptionList.get(inscriptionList.size() - 1);
         assertThat(testInscription.getDateinscription()).isEqualTo(DEFAULT_DATEINSCRIPTION);
         assertThat(testInscription.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testInscription.getRemarques()).isEqualTo(DEFAULT_REMARQUES);
+        assertThat(testInscription.getInstoLAT()).isEqualTo(DEFAULT_INSTO_LAT);
     }
 
     @Test
@@ -140,25 +188,9 @@ class InscriptionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(inscription.getId().intValue())))
             .andExpect(jsonPath("$.[*].dateinscription").value(hasItem(DEFAULT_DATEINSCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.booleanValue())));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllInscriptionsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(inscriptionRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restInscriptionMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(inscriptionRepositoryMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllInscriptionsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(inscriptionRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restInscriptionMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(inscriptionRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].remarques").value(hasItem(DEFAULT_REMARQUES)))
+            .andExpect(jsonPath("$.[*].instoLAT").value(hasItem(DEFAULT_INSTO_LAT.booleanValue())));
     }
 
     @Test
@@ -174,7 +206,9 @@ class InscriptionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(inscription.getId().intValue()))
             .andExpect(jsonPath("$.dateinscription").value(DEFAULT_DATEINSCRIPTION.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.booleanValue()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.remarques").value(DEFAULT_REMARQUES))
+            .andExpect(jsonPath("$.instoLAT").value(DEFAULT_INSTO_LAT.booleanValue()));
     }
 
     @Test
@@ -196,7 +230,11 @@ class InscriptionResourceIT {
         Inscription updatedInscription = inscriptionRepository.findById(inscription.getId()).get();
         // Disconnect from session so that the updates on updatedInscription are not directly saved in db
         em.detach(updatedInscription);
-        updatedInscription.dateinscription(UPDATED_DATEINSCRIPTION).status(UPDATED_STATUS);
+        updatedInscription
+            .dateinscription(UPDATED_DATEINSCRIPTION)
+            .status(UPDATED_STATUS)
+            .remarques(UPDATED_REMARQUES)
+            .instoLAT(UPDATED_INSTO_LAT);
 
         restInscriptionMockMvc
             .perform(
@@ -212,6 +250,8 @@ class InscriptionResourceIT {
         Inscription testInscription = inscriptionList.get(inscriptionList.size() - 1);
         assertThat(testInscription.getDateinscription()).isEqualTo(UPDATED_DATEINSCRIPTION);
         assertThat(testInscription.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testInscription.getRemarques()).isEqualTo(UPDATED_REMARQUES);
+        assertThat(testInscription.getInstoLAT()).isEqualTo(UPDATED_INSTO_LAT);
     }
 
     @Test
@@ -282,7 +322,7 @@ class InscriptionResourceIT {
         Inscription partialUpdatedInscription = new Inscription();
         partialUpdatedInscription.setId(inscription.getId());
 
-        partialUpdatedInscription.dateinscription(UPDATED_DATEINSCRIPTION);
+        partialUpdatedInscription.dateinscription(UPDATED_DATEINSCRIPTION).remarques(UPDATED_REMARQUES);
 
         restInscriptionMockMvc
             .perform(
@@ -298,6 +338,8 @@ class InscriptionResourceIT {
         Inscription testInscription = inscriptionList.get(inscriptionList.size() - 1);
         assertThat(testInscription.getDateinscription()).isEqualTo(UPDATED_DATEINSCRIPTION);
         assertThat(testInscription.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testInscription.getRemarques()).isEqualTo(UPDATED_REMARQUES);
+        assertThat(testInscription.getInstoLAT()).isEqualTo(DEFAULT_INSTO_LAT);
     }
 
     @Test
@@ -312,7 +354,11 @@ class InscriptionResourceIT {
         Inscription partialUpdatedInscription = new Inscription();
         partialUpdatedInscription.setId(inscription.getId());
 
-        partialUpdatedInscription.dateinscription(UPDATED_DATEINSCRIPTION).status(UPDATED_STATUS);
+        partialUpdatedInscription
+            .dateinscription(UPDATED_DATEINSCRIPTION)
+            .status(UPDATED_STATUS)
+            .remarques(UPDATED_REMARQUES)
+            .instoLAT(UPDATED_INSTO_LAT);
 
         restInscriptionMockMvc
             .perform(
@@ -328,6 +374,8 @@ class InscriptionResourceIT {
         Inscription testInscription = inscriptionList.get(inscriptionList.size() - 1);
         assertThat(testInscription.getDateinscription()).isEqualTo(UPDATED_DATEINSCRIPTION);
         assertThat(testInscription.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testInscription.getRemarques()).isEqualTo(UPDATED_REMARQUES);
+        assertThat(testInscription.getInstoLAT()).isEqualTo(UPDATED_INSTO_LAT);
     }
 
     @Test

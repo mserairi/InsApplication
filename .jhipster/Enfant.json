@@ -16,12 +16,47 @@
       "fieldType": "Instant"
     },
     {
-      "fieldName": "autorisationImage",
-      "fieldType": "Boolean"
+      "fieldName": "genre",
+      "fieldType": "TypeGenre",
+      "fieldValues": "MASCULIN,FEMININ"
+    },
+    {
+      "fieldName": "nomParent2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenomParent2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mobParent2",
+      "fieldType": "String",
+      "fieldValidateRules": ["pattern"],
+      "fieldValidateRulesPattern": "^\\d{10,10}$"
+    },
+    {
+      "fieldName": "emailParent2",
+      "fieldType": "String",
+      "fieldValidateRules": ["pattern"],
+      "fieldValidateRulesPattern": "^.+@.+$"
     },
     {
       "fieldName": "infoSante",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "autorisationImage",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "nomContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mobContact",
+      "fieldType": "String",
+      "fieldValidateRules": ["pattern"],
+      "fieldValidateRulesPattern": "^\\d{10,10}$"
     }
   ],
   "relationships": [
@@ -32,22 +67,6 @@
       "relationshipValidateRules": "required",
       "relationshipName": "parent",
       "otherEntityField": "login"
-    },
-    {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "inscription",
-      "otherEntityRelationshipName": "inscrits",
-      "relationshipName": "suivre",
-      "otherEntityField": "lasession",
-      "ownerSide": false
-    },
-    {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "groupe",
-      "otherEntityRelationshipName": "enfant",
-      "relationshipName": "groupe",
-      "otherEntityField": "numero",
-      "ownerSide": false
     }
   ],
   "entityTableName": "enfant",

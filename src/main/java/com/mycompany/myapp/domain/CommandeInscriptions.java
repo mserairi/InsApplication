@@ -40,7 +40,7 @@ public class CommandeInscriptions implements Serializable {
     private Facture facture;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "concerne", "inscrits" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "inscrit", "formation" }, allowSetters = true)
     private Inscription inscription;
 
     @ManyToOne

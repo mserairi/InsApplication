@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class InscriptionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/inscriptions")
-    public ResponseEntity<Inscription> createInscription(@RequestBody Inscription inscription) throws URISyntaxException {
+    public ResponseEntity<Inscription> createInscription(@Valid @RequestBody Inscription inscription) throws URISyntaxException {
         log.debug("REST request to save Inscription : {}", inscription);
         if (inscription.getId() != null) {
             throw new BadRequestAlertException("A new inscription cannot already have an ID", ENTITY_NAME, "idexists");
@@ -71,7 +73,7 @@ public class InscriptionResource {
     @PutMapping("/inscriptions/{id}")
     public ResponseEntity<Inscription> updateInscription(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Inscription inscription
+        @Valid @RequestBody Inscription inscription
     ) throws URISyntaxException {
         log.debug("REST request to update Inscription : {}, {}", id, inscription);
         if (inscription.getId() == null) {
@@ -106,7 +108,7 @@ public class InscriptionResource {
     @PatchMapping(value = "/inscriptions/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<Inscription> partialUpdateInscription(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Inscription inscription
+        @NotNull @RequestBody Inscription inscription
     ) throws URISyntaxException {
         log.debug("REST request to partial update Inscription partially : {}, {}", id, inscription);
         if (inscription.getId() == null) {
@@ -130,6 +132,12 @@ public class InscriptionResource {
                     if (inscription.getStatus() != null) {
                         existingInscription.setStatus(inscription.getStatus());
                     }
+                    if (inscription.getRemarques() != null) {
+                        existingInscription.setRemarques(inscription.getRemarques());
+                    }
+                    if (inscription.getInstoLAT() != null) {
+                        existingInscription.setInstoLAT(inscription.getInstoLAT());
+                    }
 
                     return existingInscription;
                 }
@@ -145,13 +153,12 @@ public class InscriptionResource {
     /**
      * {@code GET  /inscriptions} : get all the inscriptions.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of inscriptions in body.
      */
     @GetMapping("/inscriptions")
-    public List<Inscription> getAllInscriptions(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<Inscription> getAllInscriptions() {
         log.debug("REST request to get all Inscriptions");
-        return inscriptionRepository.findAllWithEagerRelationships();
+        return inscriptionRepository.findAll();
     }
 
     /**
@@ -163,7 +170,7 @@ public class InscriptionResource {
     @GetMapping("/inscriptions/{id}")
     public ResponseEntity<Inscription> getInscription(@PathVariable Long id) {
         log.debug("REST request to get Inscription : {}", id);
-        Optional<Inscription> inscription = inscriptionRepository.findOneWithEagerRelationships(id);
+        Optional<Inscription> inscription = inscriptionRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(inscription);
     }
 

@@ -1,0 +1,78 @@
+
+
+entity Enfant {
+	nom String required
+    prenom String required
+    dateNaissance Instant
+    genre TypeGenre
+    nomParent2 String
+    prenomParent2 String
+    mobParent2 String pattern(/^\d{10,10}$/)
+    emailParent2 String pattern(/^.+@.+$/)
+    infoSante String
+    autorisationImage Boolean
+    nomContact String
+    nomContact String
+    mobContact String pattern(/^\d{10,10}$/)
+  
+}
+enum TypeGenre{
+MASCULIN, FEMININ 
+}
+entity Category {
+   libille String required
+   description String required
+}
+entity Formation {
+   libille String required
+   description String required
+   ouvertureInscription Instant
+   fermetureInscription Instant
+   seuilInscrits Integer
+   tarif Float
+}
+
+
+entity Inscription
+{  
+	dateinscription Instant
+	status EtatInscription 
+    remarques String
+    instoLAT Boolean
+}
+enum EtatInscription {
+    ENREGISTREE, LISTE_ATTENTE, VALIDEE
+}
+
+entity UserExtras{
+	mob String pattern (/^\d{10,10}$/)
+    adresse String
+    genre TypeGenre
+}
+
+
+relationship ManyToOne
+{
+Formation{category(libille) required} to Category
+
+}
+
+relationship ManyToOne
+{
+Inscription{Inscrit(prenom) required} to Enfant
+}
+
+relationship ManyToOne
+{
+Inscription{Formation(libille) required} to Formation
+}
+
+relationship ManyToOne
+{
+Enfant{Parent(login) required} to User
+
+}
+relationship OneToOne
+{
+UserExtras{user} to User
+}

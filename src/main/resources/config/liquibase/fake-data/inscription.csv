@@ -1,11 +1,11 @@
-id;dateinscription;status
-1;2021-05-19T00:44:41;false
-2;2021-05-19T01:15:38;false
-3;2021-05-18T17:01:47;false
-4;2021-05-18T19:12:42;false
-5;2021-05-18T16:28:35;false
-6;2021-05-18T13:58:05;false
-7;2021-05-19T01:11:58;false
-8;2021-05-18T20:18:45;true
-9;2021-05-19T06:27:31;true
-10;2021-05-18T19:45:21;true
+id;dateinscription;status;remarques;insto_lat;inscrit_id;formation_id
+1;2021-05-19T00:44:41;ENREGISTREE;standardization hack;false;1;1
+2;2021-05-18T13:58:05;LISTE_ATTENTE;parallelism service-desk;true;2;2
+3;2021-05-18T17:36:35;LISTE_ATTENTE;exploit;false;3;3
+4;2021-05-18T21:22:51;VALIDEE;generation;false;4;4
+5;2021-05-18T14:14:26;ENREGISTREE;deposit;false;5;5
+6;2021-05-18T21:14:58;ENREGISTREE;Global Keyboard extranet;true;6;6
+7;2021-05-19T02:41:24;ENREGISTREE;Books Madagascar;false;7;7
+8;2021-05-18T16:31:43;LISTE_ATTENTE;Lead hack tan;true;8;8
+9;2021-05-19T07:00:05;ENREGISTREE;invoice white;true;9;9
+10;2021-05-19T13:16:35;VALIDEE;Investment Small methodical;true;10;10

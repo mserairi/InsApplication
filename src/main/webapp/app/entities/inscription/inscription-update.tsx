@@ -7,10 +7,10 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { ILasession } from 'app/shared/model/lasession.model';
-import { getEntities as getLasessions } from 'app/entities/lasession/lasession.reducer';
 import { IEnfant } from 'app/shared/model/enfant.model';
 import { getEntities as getEnfants } from 'app/entities/enfant/enfant.reducer';
+import { IFormation } from 'app/shared/model/formation.model';
+import { getEntities as getFormations } from 'app/entities/formation/formation.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './inscription.reducer';
 import { IInscription } from 'app/shared/model/inscription.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -19,10 +19,9 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IInscriptionUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
-  const [idsinscrits, setIdsinscrits] = useState([]);
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { inscriptionEntity, lasessions, enfants, loading, updating } = props;
+  const { inscriptionEntity, enfants, formations, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/inscription');
@@ -35,8 +34,8 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
       props.getEntity(props.match.params.id);
     }
 
-    props.getLasessions();
     props.getEnfants();
+    props.getFormations();
   }, []);
 
   useEffect(() => {
@@ -52,8 +51,8 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
       const entity = {
         ...inscriptionEntity,
         ...values,
-        inscrits: mapIdList(values.inscrits),
-        concerne: lasessions.find(it => it.id.toString() === values.concerneId.toString()),
+        inscrit: enfants.find(it => it.id.toString() === values.inscritId.toString()),
+        formation: formations.find(it => it.id.toString() === values.formationId.toString()),
       };
 
       if (isNew) {
@@ -101,49 +100,70 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
                   value={isNew ? displayDefaultDateTime() : convertDateTimeFromServer(props.inscriptionEntity.dateinscription)}
                 />
               </AvGroup>
-              <AvGroup check>
-                <Label id="statusLabel">
-                  <AvInput id="inscription-status" data-cy="status" type="checkbox" className="form-check-input" name="status" />
+              <AvGroup>
+                <Label id="statusLabel" for="inscription-status">
                   <Translate contentKey="insApplicationApp.inscription.status">Status</Translate>
                 </Label>
-              </AvGroup>
-              <AvGroup>
-                <Label for="inscription-concerne">
-                  <Translate contentKey="insApplicationApp.inscription.concerne">Concerne</Translate>
-                </Label>
-                <AvInput id="inscription-concerne" data-cy="concerne" type="select" className="form-control" name="concerneId">
-                  <option value="" key="0" />
-                  {lasessions
-                    ? lasessions.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.code}
-                        </option>
-                      ))
-                    : null}
+                <AvInput
+                  id="inscription-status"
+                  data-cy="status"
+                  type="select"
+                  className="form-control"
+                  name="status"
+                  value={(!isNew && inscriptionEntity.status) || 'ENREGISTREE'}
+                >
+                  <option value="ENREGISTREE">{translate('insApplicationApp.EtatInscription.ENREGISTREE')}</option>
+                  <option value="LISTE_ATTENTE">{translate('insApplicationApp.EtatInscription.LISTE_ATTENTE')}</option>
+                  <option value="VALIDEE">{translate('insApplicationApp.EtatInscription.VALIDEE')}</option>
                 </AvInput>
               </AvGroup>
               <AvGroup>
-                <Label for="inscription-inscrits">
-                  <Translate contentKey="insApplicationApp.inscription.inscrits">Inscrits</Translate>
+                <Label id="remarquesLabel" for="inscription-remarques">
+                  <Translate contentKey="insApplicationApp.inscription.remarques">Remarques</Translate>
                 </Label>
-                <AvInput
-                  id="inscription-inscrits"
-                  data-cy="inscrits"
-                  type="select"
-                  multiple
-                  className="form-control"
-                  name="inscrits"
-                  value={!isNew && inscriptionEntity.inscrits && inscriptionEntity.inscrits.map(e => e.id)}
-                >
+                <AvField id="inscription-remarques" data-cy="remarques" type="text" name="remarques" />
+              </AvGroup>
+              <AvGroup check>
+                <Label id="instoLATLabel">
+                  <AvInput id="inscription-instoLAT" data-cy="instoLAT" type="checkbox" className="form-check-input" name="instoLAT" />
+                  <Translate contentKey="insApplicationApp.inscription.instoLAT">Insto LAT</Translate>
+                </Label>
+              </AvGroup>
+              <AvGroup>
+                <Label for="inscription-inscrit">
+                  <Translate contentKey="insApplicationApp.inscription.inscrit">Inscrit</Translate>
+                </Label>
+                <AvInput id="inscription-inscrit" data-cy="inscrit" type="select" className="form-control" name="inscritId" required>
                   <option value="" key="0" />
                   {enfants
                     ? enfants.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
+                          {otherEntity.prenom}
                         </option>
                       ))
                     : null}
                 </AvInput>
+                <AvFeedback>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </AvFeedback>
+              </AvGroup>
+              <AvGroup>
+                <Label for="inscription-formation">
+                  <Translate contentKey="insApplicationApp.inscription.formation">Formation</Translate>
+                </Label>
+                <AvInput id="inscription-formation" data-cy="formation" type="select" className="form-control" name="formationId" required>
+                  <option value="" key="0" />
+                  {formations
+                    ? formations.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.libille}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+                <AvFeedback>
+                  <Translate contentKey="entity.validation.required">This field is required.</Translate>
+                </AvFeedback>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/inscription" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
@@ -167,8 +187,8 @@ export const InscriptionUpdate = (props: IInscriptionUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  lasessions: storeState.lasession.entities,
   enfants: storeState.enfant.entities,
+  formations: storeState.formation.entities,
   inscriptionEntity: storeState.inscription.entity,
   loading: storeState.inscription.loading,
   updating: storeState.inscription.updating,
@@ -176,8 +196,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getLasessions,
   getEnfants,
+  getFormations,
   getEntity,
   updateEntity,
   createEntity,

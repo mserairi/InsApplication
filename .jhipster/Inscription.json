@@ -7,23 +7,34 @@
     },
     {
       "fieldName": "status",
+      "fieldType": "EtatInscription",
+      "fieldValues": "ENREGISTREE,LISTE_ATTENTE,VALIDEE"
+    },
+    {
+      "fieldName": "remarques",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "instoLAT",
       "fieldType": "Boolean"
     }
   ],
   "relationships": [
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "lasession",
+      "otherEntityName": "enfant",
       "otherEntityRelationshipName": "inscription",
-      "relationshipName": "concerne",
-      "otherEntityField": "code"
+      "relationshipValidateRules": "required",
+      "relationshipName": "inscrit",
+      "otherEntityField": "prenom"
     },
     {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "enfant",
-      "otherEntityRelationshipName": "suivre",
-      "relationshipName": "inscrits",
-      "ownerSide": true
+      "relationshipType": "many-to-one",
+      "otherEntityName": "formation",
+      "otherEntityRelationshipName": "inscription",
+      "relationshipValidateRules": "required",
+      "relationshipName": "formation",
+      "otherEntityField": "libille"
     }
   ],
   "entityTableName": "inscription",
