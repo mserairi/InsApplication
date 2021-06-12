@@ -1,11 +1,11 @@
 package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mycompany.myapp.domain.enumeration.EtatInscription;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,22 +27,25 @@ public class Inscription implements Serializable {
     @Column(name = "dateinscription")
     private Instant dateinscription;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Boolean status;
+    private EtatInscription status;
 
-    @ManyToOne
+    @Column(name = "remarques")
+    private String remarques;
+
+    @Column(name = "insto_lat")
+    private Boolean instoLAT;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "parent" }, allowSetters = true)
+    private Enfant inscrit;
+
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = { "category" }, allowSetters = true)
-    private Lasession concerne;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(
-        name = "rel_inscription__inscrits",
-        joinColumns = @JoinColumn(name = "inscription_id"),
-        inverseJoinColumns = @JoinColumn(name = "inscrits_id")
-    )
-    @JsonIgnoreProperties(value = { "parent", "suivres", "groupes" }, allowSetters = true)
-    private Set<Enfant> inscrits = new HashSet<>();
+    private Formation formation;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -71,55 +74,69 @@ public class Inscription implements Serializable {
         this.dateinscription = dateinscription;
     }
 
-    public Boolean getStatus() {
+    public EtatInscription getStatus() {
         return this.status;
     }
 
-    public Inscription status(Boolean status) {
+    public Inscription status(EtatInscription status) {
         this.status = status;
         return this;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EtatInscription status) {
         this.status = status;
     }
 
-    public Lasession getConcerne() {
-        return this.concerne;
+    public String getRemarques() {
+        return this.remarques;
     }
 
-    public Inscription concerne(Lasession lasession) {
-        this.setConcerne(lasession);
+    public Inscription remarques(String remarques) {
+        this.remarques = remarques;
         return this;
     }
 
-    public void setConcerne(Lasession lasession) {
-        this.concerne = lasession;
+    public void setRemarques(String remarques) {
+        this.remarques = remarques;
     }
 
-    public Set<Enfant> getInscrits() {
-        return this.inscrits;
+    public Boolean getInstoLAT() {
+        return this.instoLAT;
     }
 
-    public Inscription inscrits(Set<Enfant> enfants) {
-        this.setInscrits(enfants);
+    public Inscription instoLAT(Boolean instoLAT) {
+        this.instoLAT = instoLAT;
         return this;
     }
 
-    public Inscription addInscrits(Enfant enfant) {
-        this.inscrits.add(enfant);
-        enfant.getSuivres().add(this);
+    public void setInstoLAT(Boolean instoLAT) {
+        this.instoLAT = instoLAT;
+    }
+
+    public Enfant getInscrit() {
+        return this.inscrit;
+    }
+
+    public Inscription inscrit(Enfant enfant) {
+        this.setInscrit(enfant);
         return this;
     }
 
-    public Inscription removeInscrits(Enfant enfant) {
-        this.inscrits.remove(enfant);
-        enfant.getSuivres().remove(this);
+    public void setInscrit(Enfant enfant) {
+        this.inscrit = enfant;
+    }
+
+    public Formation getFormation() {
+        return this.formation;
+    }
+
+    public Inscription formation(Formation formation) {
+        this.setFormation(formation);
         return this;
     }
 
-    public void setInscrits(Set<Enfant> enfants) {
-        this.inscrits = enfants;
+    public void setFormation(Formation formation) {
+        this.formation = formation;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -148,6 +165,8 @@ public class Inscription implements Serializable {
             "id=" + getId() +
             ", dateinscription='" + getDateinscription() + "'" +
             ", status='" + getStatus() + "'" +
+            ", remarques='" + getRemarques() + "'" +
+            ", instoLAT='" + getInstoLAT() + "'" +
             "}";
     }
 }

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Enfant;
 import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.domain.enumeration.TypeGenre;
 import com.mycompany.myapp.repository.EnfantRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -41,11 +42,32 @@ class EnfantResourceIT {
     private static final Instant DEFAULT_DATE_NAISSANCE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_DATE_NAISSANCE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Boolean DEFAULT_AUTORISATION_IMAGE = false;
-    private static final Boolean UPDATED_AUTORISATION_IMAGE = true;
+    private static final TypeGenre DEFAULT_GENRE = TypeGenre.MASCULIN;
+    private static final TypeGenre UPDATED_GENRE = TypeGenre.FEMININ;
+
+    private static final String DEFAULT_NOM_PARENT_2 = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_PARENT_2 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PRENOM_PARENT_2 = "AAAAAAAAAA";
+    private static final String UPDATED_PRENOM_PARENT_2 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_MOB_PARENT_2 = "0936836063";
+    private static final String UPDATED_MOB_PARENT_2 = "7149864378";
+
+    private static final String DEFAULT_EMAIL_PARENT_2 = "=@|[";
+    private static final String UPDATED_EMAIL_PARENT_2 = "[D@mtoX";
 
     private static final String DEFAULT_INFO_SANTE = "AAAAAAAAAA";
     private static final String UPDATED_INFO_SANTE = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_AUTORISATION_IMAGE = false;
+    private static final Boolean UPDATED_AUTORISATION_IMAGE = true;
+
+    private static final String DEFAULT_NOM_CONTACT = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_CONTACT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_MOB_CONTACT = "9839537977";
+    private static final String UPDATED_MOB_CONTACT = "1093681536";
 
     private static final String ENTITY_API_URL = "/api/enfants";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -75,8 +97,15 @@ class EnfantResourceIT {
             .nom(DEFAULT_NOM)
             .prenom(DEFAULT_PRENOM)
             .dateNaissance(DEFAULT_DATE_NAISSANCE)
+            .genre(DEFAULT_GENRE)
+            .nomParent2(DEFAULT_NOM_PARENT_2)
+            .prenomParent2(DEFAULT_PRENOM_PARENT_2)
+            .mobParent2(DEFAULT_MOB_PARENT_2)
+            .emailParent2(DEFAULT_EMAIL_PARENT_2)
+            .infoSante(DEFAULT_INFO_SANTE)
             .autorisationImage(DEFAULT_AUTORISATION_IMAGE)
-            .infoSante(DEFAULT_INFO_SANTE);
+            .nomContact(DEFAULT_NOM_CONTACT)
+            .mobContact(DEFAULT_MOB_CONTACT);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -96,8 +125,15 @@ class EnfantResourceIT {
             .nom(UPDATED_NOM)
             .prenom(UPDATED_PRENOM)
             .dateNaissance(UPDATED_DATE_NAISSANCE)
+            .genre(UPDATED_GENRE)
+            .nomParent2(UPDATED_NOM_PARENT_2)
+            .prenomParent2(UPDATED_PRENOM_PARENT_2)
+            .mobParent2(UPDATED_MOB_PARENT_2)
+            .emailParent2(UPDATED_EMAIL_PARENT_2)
+            .infoSante(UPDATED_INFO_SANTE)
             .autorisationImage(UPDATED_AUTORISATION_IMAGE)
-            .infoSante(UPDATED_INFO_SANTE);
+            .nomContact(UPDATED_NOM_CONTACT)
+            .mobContact(UPDATED_MOB_CONTACT);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -127,8 +163,15 @@ class EnfantResourceIT {
         assertThat(testEnfant.getNom()).isEqualTo(DEFAULT_NOM);
         assertThat(testEnfant.getPrenom()).isEqualTo(DEFAULT_PRENOM);
         assertThat(testEnfant.getDateNaissance()).isEqualTo(DEFAULT_DATE_NAISSANCE);
-        assertThat(testEnfant.getAutorisationImage()).isEqualTo(DEFAULT_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getGenre()).isEqualTo(DEFAULT_GENRE);
+        assertThat(testEnfant.getNomParent2()).isEqualTo(DEFAULT_NOM_PARENT_2);
+        assertThat(testEnfant.getPrenomParent2()).isEqualTo(DEFAULT_PRENOM_PARENT_2);
+        assertThat(testEnfant.getMobParent2()).isEqualTo(DEFAULT_MOB_PARENT_2);
+        assertThat(testEnfant.getEmailParent2()).isEqualTo(DEFAULT_EMAIL_PARENT_2);
         assertThat(testEnfant.getInfoSante()).isEqualTo(DEFAULT_INFO_SANTE);
+        assertThat(testEnfant.getAutorisationImage()).isEqualTo(DEFAULT_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getNomContact()).isEqualTo(DEFAULT_NOM_CONTACT);
+        assertThat(testEnfant.getMobContact()).isEqualTo(DEFAULT_MOB_CONTACT);
     }
 
     @Test
@@ -198,8 +241,15 @@ class EnfantResourceIT {
             .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
             .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM)))
             .andExpect(jsonPath("$.[*].dateNaissance").value(hasItem(DEFAULT_DATE_NAISSANCE.toString())))
+            .andExpect(jsonPath("$.[*].genre").value(hasItem(DEFAULT_GENRE.toString())))
+            .andExpect(jsonPath("$.[*].nomParent2").value(hasItem(DEFAULT_NOM_PARENT_2)))
+            .andExpect(jsonPath("$.[*].prenomParent2").value(hasItem(DEFAULT_PRENOM_PARENT_2)))
+            .andExpect(jsonPath("$.[*].mobParent2").value(hasItem(DEFAULT_MOB_PARENT_2)))
+            .andExpect(jsonPath("$.[*].emailParent2").value(hasItem(DEFAULT_EMAIL_PARENT_2)))
+            .andExpect(jsonPath("$.[*].infoSante").value(hasItem(DEFAULT_INFO_SANTE)))
             .andExpect(jsonPath("$.[*].autorisationImage").value(hasItem(DEFAULT_AUTORISATION_IMAGE.booleanValue())))
-            .andExpect(jsonPath("$.[*].infoSante").value(hasItem(DEFAULT_INFO_SANTE)));
+            .andExpect(jsonPath("$.[*].nomContact").value(hasItem(DEFAULT_NOM_CONTACT)))
+            .andExpect(jsonPath("$.[*].mobContact").value(hasItem(DEFAULT_MOB_CONTACT)));
     }
 
     @Test
@@ -217,8 +267,15 @@ class EnfantResourceIT {
             .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
             .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM))
             .andExpect(jsonPath("$.dateNaissance").value(DEFAULT_DATE_NAISSANCE.toString()))
+            .andExpect(jsonPath("$.genre").value(DEFAULT_GENRE.toString()))
+            .andExpect(jsonPath("$.nomParent2").value(DEFAULT_NOM_PARENT_2))
+            .andExpect(jsonPath("$.prenomParent2").value(DEFAULT_PRENOM_PARENT_2))
+            .andExpect(jsonPath("$.mobParent2").value(DEFAULT_MOB_PARENT_2))
+            .andExpect(jsonPath("$.emailParent2").value(DEFAULT_EMAIL_PARENT_2))
+            .andExpect(jsonPath("$.infoSante").value(DEFAULT_INFO_SANTE))
             .andExpect(jsonPath("$.autorisationImage").value(DEFAULT_AUTORISATION_IMAGE.booleanValue()))
-            .andExpect(jsonPath("$.infoSante").value(DEFAULT_INFO_SANTE));
+            .andExpect(jsonPath("$.nomContact").value(DEFAULT_NOM_CONTACT))
+            .andExpect(jsonPath("$.mobContact").value(DEFAULT_MOB_CONTACT));
     }
 
     @Test
@@ -244,8 +301,15 @@ class EnfantResourceIT {
             .nom(UPDATED_NOM)
             .prenom(UPDATED_PRENOM)
             .dateNaissance(UPDATED_DATE_NAISSANCE)
+            .genre(UPDATED_GENRE)
+            .nomParent2(UPDATED_NOM_PARENT_2)
+            .prenomParent2(UPDATED_PRENOM_PARENT_2)
+            .mobParent2(UPDATED_MOB_PARENT_2)
+            .emailParent2(UPDATED_EMAIL_PARENT_2)
+            .infoSante(UPDATED_INFO_SANTE)
             .autorisationImage(UPDATED_AUTORISATION_IMAGE)
-            .infoSante(UPDATED_INFO_SANTE);
+            .nomContact(UPDATED_NOM_CONTACT)
+            .mobContact(UPDATED_MOB_CONTACT);
 
         restEnfantMockMvc
             .perform(
@@ -262,8 +326,15 @@ class EnfantResourceIT {
         assertThat(testEnfant.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testEnfant.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testEnfant.getDateNaissance()).isEqualTo(UPDATED_DATE_NAISSANCE);
-        assertThat(testEnfant.getAutorisationImage()).isEqualTo(UPDATED_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getGenre()).isEqualTo(UPDATED_GENRE);
+        assertThat(testEnfant.getNomParent2()).isEqualTo(UPDATED_NOM_PARENT_2);
+        assertThat(testEnfant.getPrenomParent2()).isEqualTo(UPDATED_PRENOM_PARENT_2);
+        assertThat(testEnfant.getMobParent2()).isEqualTo(UPDATED_MOB_PARENT_2);
+        assertThat(testEnfant.getEmailParent2()).isEqualTo(UPDATED_EMAIL_PARENT_2);
         assertThat(testEnfant.getInfoSante()).isEqualTo(UPDATED_INFO_SANTE);
+        assertThat(testEnfant.getAutorisationImage()).isEqualTo(UPDATED_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getNomContact()).isEqualTo(UPDATED_NOM_CONTACT);
+        assertThat(testEnfant.getMobContact()).isEqualTo(UPDATED_MOB_CONTACT);
     }
 
     @Test
@@ -334,7 +405,16 @@ class EnfantResourceIT {
         Enfant partialUpdatedEnfant = new Enfant();
         partialUpdatedEnfant.setId(enfant.getId());
 
-        partialUpdatedEnfant.dateNaissance(UPDATED_DATE_NAISSANCE).infoSante(UPDATED_INFO_SANTE);
+        partialUpdatedEnfant
+            .nom(UPDATED_NOM)
+            .prenom(UPDATED_PRENOM)
+            .genre(UPDATED_GENRE)
+            .nomParent2(UPDATED_NOM_PARENT_2)
+            .prenomParent2(UPDATED_PRENOM_PARENT_2)
+            .mobParent2(UPDATED_MOB_PARENT_2)
+            .autorisationImage(UPDATED_AUTORISATION_IMAGE)
+            .nomContact(UPDATED_NOM_CONTACT)
+            .mobContact(UPDATED_MOB_CONTACT);
 
         restEnfantMockMvc
             .perform(
@@ -348,11 +428,18 @@ class EnfantResourceIT {
         List<Enfant> enfantList = enfantRepository.findAll();
         assertThat(enfantList).hasSize(databaseSizeBeforeUpdate);
         Enfant testEnfant = enfantList.get(enfantList.size() - 1);
-        assertThat(testEnfant.getNom()).isEqualTo(DEFAULT_NOM);
-        assertThat(testEnfant.getPrenom()).isEqualTo(DEFAULT_PRENOM);
-        assertThat(testEnfant.getDateNaissance()).isEqualTo(UPDATED_DATE_NAISSANCE);
-        assertThat(testEnfant.getAutorisationImage()).isEqualTo(DEFAULT_AUTORISATION_IMAGE);
-        assertThat(testEnfant.getInfoSante()).isEqualTo(UPDATED_INFO_SANTE);
+        assertThat(testEnfant.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testEnfant.getPrenom()).isEqualTo(UPDATED_PRENOM);
+        assertThat(testEnfant.getDateNaissance()).isEqualTo(DEFAULT_DATE_NAISSANCE);
+        assertThat(testEnfant.getGenre()).isEqualTo(UPDATED_GENRE);
+        assertThat(testEnfant.getNomParent2()).isEqualTo(UPDATED_NOM_PARENT_2);
+        assertThat(testEnfant.getPrenomParent2()).isEqualTo(UPDATED_PRENOM_PARENT_2);
+        assertThat(testEnfant.getMobParent2()).isEqualTo(UPDATED_MOB_PARENT_2);
+        assertThat(testEnfant.getEmailParent2()).isEqualTo(DEFAULT_EMAIL_PARENT_2);
+        assertThat(testEnfant.getInfoSante()).isEqualTo(DEFAULT_INFO_SANTE);
+        assertThat(testEnfant.getAutorisationImage()).isEqualTo(UPDATED_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getNomContact()).isEqualTo(UPDATED_NOM_CONTACT);
+        assertThat(testEnfant.getMobContact()).isEqualTo(UPDATED_MOB_CONTACT);
     }
 
     @Test
@@ -371,8 +458,15 @@ class EnfantResourceIT {
             .nom(UPDATED_NOM)
             .prenom(UPDATED_PRENOM)
             .dateNaissance(UPDATED_DATE_NAISSANCE)
+            .genre(UPDATED_GENRE)
+            .nomParent2(UPDATED_NOM_PARENT_2)
+            .prenomParent2(UPDATED_PRENOM_PARENT_2)
+            .mobParent2(UPDATED_MOB_PARENT_2)
+            .emailParent2(UPDATED_EMAIL_PARENT_2)
+            .infoSante(UPDATED_INFO_SANTE)
             .autorisationImage(UPDATED_AUTORISATION_IMAGE)
-            .infoSante(UPDATED_INFO_SANTE);
+            .nomContact(UPDATED_NOM_CONTACT)
+            .mobContact(UPDATED_MOB_CONTACT);
 
         restEnfantMockMvc
             .perform(
@@ -389,8 +483,15 @@ class EnfantResourceIT {
         assertThat(testEnfant.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testEnfant.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testEnfant.getDateNaissance()).isEqualTo(UPDATED_DATE_NAISSANCE);
-        assertThat(testEnfant.getAutorisationImage()).isEqualTo(UPDATED_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getGenre()).isEqualTo(UPDATED_GENRE);
+        assertThat(testEnfant.getNomParent2()).isEqualTo(UPDATED_NOM_PARENT_2);
+        assertThat(testEnfant.getPrenomParent2()).isEqualTo(UPDATED_PRENOM_PARENT_2);
+        assertThat(testEnfant.getMobParent2()).isEqualTo(UPDATED_MOB_PARENT_2);
+        assertThat(testEnfant.getEmailParent2()).isEqualTo(UPDATED_EMAIL_PARENT_2);
         assertThat(testEnfant.getInfoSante()).isEqualTo(UPDATED_INFO_SANTE);
+        assertThat(testEnfant.getAutorisationImage()).isEqualTo(UPDATED_AUTORISATION_IMAGE);
+        assertThat(testEnfant.getNomContact()).isEqualTo(UPDATED_NOM_CONTACT);
+        assertThat(testEnfant.getMobContact()).isEqualTo(UPDATED_MOB_CONTACT);
     }
 
     @Test

@@ -20,8 +20,10 @@
       "id": "ID",
       "dateinscription": "Dateinscription",
       "status": "Status",
-      "concerne": "Concerne",
-      "inscrits": "Inscrits"
+      "remarques": "Remarques",
+      "instoLAT": "Insto LAT",
+      "inscrit": "Inscrit",
+      "formation": "Formation"
     }
   }
 }

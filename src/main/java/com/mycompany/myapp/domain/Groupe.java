@@ -51,7 +51,7 @@ public class Groupe implements Serializable {
         joinColumns = @JoinColumn(name = "groupe_id"),
         inverseJoinColumns = @JoinColumn(name = "enfant_id")
     )
-    @JsonIgnoreProperties(value = { "parent", "suivres", "groupes" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "parent" }, allowSetters = true)
     private Set<Enfant> enfants = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -175,13 +175,11 @@ public class Groupe implements Serializable {
 
     public Groupe addEnfant(Enfant enfant) {
         this.enfants.add(enfant);
-        enfant.getGroupes().add(this);
         return this;
     }
 
     public Groupe removeEnfant(Enfant enfant) {
         this.enfants.remove(enfant);
-        enfant.getGroupes().remove(this);
         return this;
     }
 

@@ -135,11 +135,32 @@ public class EnfantResource {
                     if (enfant.getDateNaissance() != null) {
                         existingEnfant.setDateNaissance(enfant.getDateNaissance());
                     }
-                    if (enfant.getAutorisationImage() != null) {
-                        existingEnfant.setAutorisationImage(enfant.getAutorisationImage());
+                    if (enfant.getGenre() != null) {
+                        existingEnfant.setGenre(enfant.getGenre());
+                    }
+                    if (enfant.getNomParent2() != null) {
+                        existingEnfant.setNomParent2(enfant.getNomParent2());
+                    }
+                    if (enfant.getPrenomParent2() != null) {
+                        existingEnfant.setPrenomParent2(enfant.getPrenomParent2());
+                    }
+                    if (enfant.getMobParent2() != null) {
+                        existingEnfant.setMobParent2(enfant.getMobParent2());
+                    }
+                    if (enfant.getEmailParent2() != null) {
+                        existingEnfant.setEmailParent2(enfant.getEmailParent2());
                     }
                     if (enfant.getInfoSante() != null) {
                         existingEnfant.setInfoSante(enfant.getInfoSante());
+                    }
+                    if (enfant.getAutorisationImage() != null) {
+                        existingEnfant.setAutorisationImage(enfant.getAutorisationImage());
+                    }
+                    if (enfant.getNomContact() != null) {
+                        existingEnfant.setNomContact(enfant.getNomContact());
+                    }
+                    if (enfant.getMobContact() != null) {
+                        existingEnfant.setMobContact(enfant.getMobContact());
                     }
 
                     return existingEnfant;

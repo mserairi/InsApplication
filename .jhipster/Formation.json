@@ -1,0 +1,51 @@
+{
+  "name": "Formation",
+  "fields": [
+    {
+      "fieldName": "libille",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ouvertureInscription",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "fermetureInscription",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "seuilInscrits",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "tarif",
+      "fieldType": "Float"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "category",
+      "otherEntityRelationshipName": "formation",
+      "relationshipValidateRules": "required",
+      "relationshipName": "category",
+      "otherEntityField": "libille"
+    }
+  ],
+  "entityTableName": "formation",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210612182253"
+}

@@ -1,0 +1,10 @@
+{
+  "insApplicationApp": {
+    "EtatInscription": {
+      "null": "",
+      "ENREGISTREE": "ENREGISTREE",
+      "LISTE_ATTENTE": "LISTE_ATTENTE",
+      "VALIDEE": "VALIDEE"
+    }
+  }
+}

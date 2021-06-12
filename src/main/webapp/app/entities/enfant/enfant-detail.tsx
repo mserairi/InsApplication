@@ -51,17 +51,59 @@ export const EnfantDetail = (props: IEnfantDetailProps) => {
             {enfantEntity.dateNaissance ? <TextFormat value={enfantEntity.dateNaissance} type="date" format={APP_DATE_FORMAT} /> : null}
           </dd>
           <dt>
-            <span id="autorisationImage">
-              <Translate contentKey="insApplicationApp.enfant.autorisationImage">Autorisation Image</Translate>
+            <span id="genre">
+              <Translate contentKey="insApplicationApp.enfant.genre">Genre</Translate>
             </span>
           </dt>
-          <dd>{enfantEntity.autorisationImage ? 'true' : 'false'}</dd>
+          <dd>{enfantEntity.genre}</dd>
+          <dt>
+            <span id="nomParent2">
+              <Translate contentKey="insApplicationApp.enfant.nomParent2">Nom Parent 2</Translate>
+            </span>
+          </dt>
+          <dd>{enfantEntity.nomParent2}</dd>
+          <dt>
+            <span id="prenomParent2">
+              <Translate contentKey="insApplicationApp.enfant.prenomParent2">Prenom Parent 2</Translate>
+            </span>
+          </dt>
+          <dd>{enfantEntity.prenomParent2}</dd>
+          <dt>
+            <span id="mobParent2">
+              <Translate contentKey="insApplicationApp.enfant.mobParent2">Mob Parent 2</Translate>
+            </span>
+          </dt>
+          <dd>{enfantEntity.mobParent2}</dd>
+          <dt>
+            <span id="emailParent2">
+              <Translate contentKey="insApplicationApp.enfant.emailParent2">Email Parent 2</Translate>
+            </span>
+          </dt>
+          <dd>{enfantEntity.emailParent2}</dd>
           <dt>
             <span id="infoSante">
               <Translate contentKey="insApplicationApp.enfant.infoSante">Info Sante</Translate>
             </span>
           </dt>
           <dd>{enfantEntity.infoSante}</dd>
+          <dt>
+            <span id="autorisationImage">
+              <Translate contentKey="insApplicationApp.enfant.autorisationImage">Autorisation Image</Translate>
+            </span>
+          </dt>
+          <dd>{enfantEntity.autorisationImage ? 'true' : 'false'}</dd>
+          <dt>
+            <span id="nomContact">
+              <Translate contentKey="insApplicationApp.enfant.nomContact">Nom Contact</Translate>
+            </span>
+          </dt>
+          <dd>{enfantEntity.nomContact}</dd>
+          <dt>
+            <span id="mobContact">
+              <Translate contentKey="insApplicationApp.enfant.mobContact">Mob Contact</Translate>
+            </span>
+          </dt>
+          <dd>{enfantEntity.mobContact}</dd>
           <dt>
             <Translate contentKey="insApplicationApp.enfant.parent">Parent</Translate>
           </dt>

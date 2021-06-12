@@ -17,29 +17,24 @@
             <column name="dateinscription" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="status" type="boolean">
+            <column name="status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="concerne_id" type="bigint">
+            <column name="remarques" type="varchar(255)">
                 <constraints nullable="true" />
+            </column>
+            <column name="insto_lat" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="inscrit_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="formation_id" type="bigint">
+                <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="inscription" columnName="dateinscription" columnDataType="${datetimeType}"/>
-    </changeSet>
-
-    <changeSet id="20210519134147-1-relations" author="jhipster">
-
-        <createTable tableName="rel_inscription__inscrits">
-            <column name="inscrits_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="inscription_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="inscription_id, inscrits_id" tableName="rel_inscription__inscrits"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -59,7 +54,11 @@
                   tableName="inscription">
             <column name="id" type="numeric"/>
             <column name="dateinscription" type="${datetimeType}"/>
-            <column name="status" type="boolean"/>
+            <column name="status" type="string"/>
+            <column name="remarques" type="string"/>
+            <column name="insto_lat" type="boolean"/>
+            <column name="inscrit_id" type="numeric"/>
+            <column name="formation_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -21,6 +21,8 @@
         "groupe": "Groupe",
         "creneau": "Creneau",
         "salle": "Salle",
+        "formation": "Formation",
+        "userExtras": "User Extras",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

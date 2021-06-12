@@ -21,11 +21,16 @@
       "nom": "Nom",
       "prenom": "Prenom",
       "dateNaissance": "Date Naissance",
-      "autorisationImage": "Autorisation Image",
+      "genre": "Genre",
+      "nomParent2": "Nom Parent 2",
+      "prenomParent2": "Prenom Parent 2",
+      "mobParent2": "Mob Parent 2",
+      "emailParent2": "Email Parent 2",
       "infoSante": "Info Sante",
-      "parent": "Parent",
-      "suivre": "Suivre",
-      "groupe": "Groupe"
+      "autorisationImage": "Autorisation Image",
+      "nomContact": "Nom Contact",
+      "mobContact": "Mob Contact",
+      "parent": "Parent"
     }
   }
 }
